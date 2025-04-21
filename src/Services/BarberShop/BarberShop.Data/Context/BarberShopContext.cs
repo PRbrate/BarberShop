@@ -50,6 +50,25 @@ namespace BarberShop.Data.Context
                 .WithOne(s => s.User)
                 .HasForeignKey(s => s.UserId);
 
+            modelBuilder.Entity<User>()
+                .Property(p => p.CreatedAt)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .ValueGeneratedOnAdd();
+            
+            modelBuilder.Entity<Service>()
+                .Property(p => p.CreatedAt)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<Subscription>()
+                .Property(p => p.CreatedAt)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<Haircut>()
+                .Property(p => p.CreatedAt)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .ValueGeneratedOnAdd();
 
         }
 

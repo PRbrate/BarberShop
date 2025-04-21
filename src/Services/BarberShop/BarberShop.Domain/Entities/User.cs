@@ -14,8 +14,5 @@ namespace BarberShop.Domain.Entities
         public ICollection<Haircut> Haircuts { get; set; }
         public ICollection<Service> Services { get; set; }
 
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
-        public DateTime UpdatedAt { get; set; }
-
     }
 }
