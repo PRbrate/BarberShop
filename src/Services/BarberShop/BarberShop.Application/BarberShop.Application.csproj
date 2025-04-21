@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BarberShop.Data\BarberShop.Data.csproj" />
     <ProjectReference Include="..\BarberShop.Domain\BarberShop.Domain.csproj" />
   </ItemGroup>
 

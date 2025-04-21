@@ -18,10 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\v1\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <ProjectReference Include="..\BarberShop.Application\BarberShop.Application.csproj" />
     <ProjectReference Include="..\BarberShop.Data\BarberShop.Data.csproj" />
   </ItemGroup>
 
