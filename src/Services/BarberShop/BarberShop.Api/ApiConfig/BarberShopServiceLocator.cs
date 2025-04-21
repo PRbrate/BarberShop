@@ -4,6 +4,11 @@
     {
         public static void RegisterServices(this IServiceCollection services)
         {
+            #region services
+            #endregion
+
+            #region repositories
+            #endregion
         }
     }
 }
