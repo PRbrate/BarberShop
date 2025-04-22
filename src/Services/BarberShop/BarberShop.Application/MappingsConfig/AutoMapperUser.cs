@@ -14,11 +14,19 @@ namespace BarberShop.Application.MappingsConfig
         {
             Id = userDto.id,
             Name = userDto.Name,
-            Email = userDto.email,
-            Adress = userDto.adress,
-            Password = userDto.password
+            Email = userDto.Email,
+            Adress = userDto.Address,
+            Password = userDto.Password
         };
 
+        public static User Map(this RegisterUserDto userDto) => new User
+        {
+            Id = userDto.Id,
+            Name = userDto.Name,
+            Email = userDto.Email,
+            Adress = userDto.Address,
+            Password = userDto.Password
+        };
         public static UserDto Map(this User user) => new
             (user.Id, user.Name, user.Email, user.Adress, user.Password);
     }

@@ -1,14 +1,9 @@
 ﻿using BarberShop.Domain.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace BarberShop.Data.Context
 {
-    public class BarberShopContext : DbContext
+    public class BarberShopContext : IdentityDbContext<User>
     {
         public BarberShopContext(DbContextOptions<BarberShopContext> options) : base(options)
         {
@@ -54,7 +49,7 @@ namespace BarberShop.Data.Context
                 .Property(p => p.CreatedAt)
                 .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .ValueGeneratedOnAdd();
-            
+
             modelBuilder.Entity<Service>()
                 .Property(p => p.CreatedAt)
                 .HasDefaultValueSql("CURRENT_TIMESTAMP")

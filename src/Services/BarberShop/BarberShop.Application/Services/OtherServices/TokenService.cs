@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BarberShop.Application.Services.OtherServices
 {
-    class TokenService
+    public class TokenService
     {
         public static string GenerateToken(User user)
         {

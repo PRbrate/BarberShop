@@ -1,8 +1,8 @@
-﻿using BarberShop.Core.Entities;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace BarberShop.Domain.Entities
 {
-    public class User : Entity
+    public class User : IdentityUser
     {
         public string Name { get; set; }
         public string Email { get; set; }

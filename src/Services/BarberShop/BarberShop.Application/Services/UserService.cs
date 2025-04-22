@@ -21,7 +21,7 @@ namespace BarberShop.Application.Services
 
         public async Task<bool> CreateUser(UserDto userDto)
         {
-            if (!EmailValidatorService.VerifyEmail(userDto.email) || !PasswordValidatorSerivce.VerifyPassword(userDto.password) || await _userRepository.EmailUserExists(userDto.email) == true) return false; 
+            if (!EmailValidatorService.VerifyEmail(userDto.Email) || !PasswordValidatorSerivce.VerifyPassword(userDto.Password) || await _userRepository.EmailUserExists(userDto.Email) == true) return false; 
 
             var user = AutoMapperUser.Map(userDto);
 
