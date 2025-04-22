@@ -33,6 +33,8 @@ namespace BarberShop.Data.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.HasDefaultSchema("dbo");
+
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(BarberShopContext).Assembly);
 
             modelBuilder.Entity<User>()
