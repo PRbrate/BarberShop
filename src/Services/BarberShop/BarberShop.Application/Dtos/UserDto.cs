@@ -6,5 +6,5 @@ using System.Threading.Tasks;
 
 namespace BarberShop.Application.Dtos
 {
-    public record UserDto(Guid id, string Name, string Email, string Address, string Password);
+    public record UserDto(string id, string Name, string Email, string Address, string Password);
 }

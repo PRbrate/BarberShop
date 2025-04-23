@@ -4,6 +4,7 @@ using BarberShop.Core.Base;
 using BarberShop.Core.Base.Interfaces;
 using BarberShop.Core.Base.Notifications;
 using BarberShop.Core.Extensions.Security;
+using BarberShop.Data.Context;
 using BarberShop.Data.Repositories;
 using BarberShop.Data.Repositories.Interfaces;
 
@@ -24,6 +25,7 @@ namespace BarberShop.Api.ApiConfig
             #endregion
 
             #region repositories
+            services.AddScoped<BarberShopContext>();
             services.AddScoped(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
             services.AddScoped<IUserRepository, UserRepository>();
 

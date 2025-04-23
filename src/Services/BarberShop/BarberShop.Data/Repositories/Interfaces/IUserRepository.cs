@@ -8,10 +8,9 @@ using System.Threading.Tasks;
 
 namespace BarberShop.Data.Repositories.Interfaces
 {
-    public interface IUserRepository : IRepositoryBase<User>
+    public interface IUserRepository 
     {
-        Task<string> Password(Guid id);
-        Task<User> GetByEmailAsync(string email);
-        Task<bool> EmailUserExists(string email);
+        Task<List<User>> GetList();
+        void Dispose();
     }
 }

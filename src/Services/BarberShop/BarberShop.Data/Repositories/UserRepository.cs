@@ -6,34 +6,23 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BarberShop.Data.Repositories
 {
-    public class UserRepository : RepositoryBase<User>, IUserRepository
+    public class UserRepository : IUserRepository
     {
         private readonly BarberShopContext _context;
 
-        public UserRepository(BarberShopContext context) : base(context)
+        public UserRepository(BarberShopContext context)
         {
             _context = context;
         }
 
-        public async Task<string> Password(Guid id)
+        public void Dispose() => _context.Dispose();
+
+        public async Task<List<User>> GetList()
         {
-            return await _context.User
-                .Where(u => u.Id == id)
-                .Select(u => u.Password) 
-                .FirstOrDefaultAsync();
+            var user = await _context.Users.ToListAsync();
+
+            return user;
         }
 
-        public async Task<bool> EmailUserExists(string email)
-        {
-            return await _context.User
-                .Where(u => u.Email == email).AnyAsync();
-        }
-
-        public async Task<User> GetByEmailAsync(string email)
-        {
-            return await _context.User
-                .Where(u => u.Email == email)
-                .FirstOrDefaultAsync();
-        }
     }
 }

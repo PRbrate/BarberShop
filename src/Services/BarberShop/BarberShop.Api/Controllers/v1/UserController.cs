@@ -1,5 +1,7 @@
 ﻿using BarberShop.Application.Dtos;
 using BarberShop.Application.Services.Interfaces;
+using BarberShop.Core.Base;
+using BarberShop.Core.Base.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,11 +9,14 @@ namespace BarberShop.Api.Controllers.v1
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class UserController : ApiControllerBase
     {
         private readonly IUserService _userService;
+        public readonly IUser _appUser;
+        private readonly INotifier _notifier;
 
-        public UserController(IUserService userService)
+
+        public UserController(INotifier notifier, IUser user,IUserService userService): base(notifier, user)
         {
             _userService = userService;
         }

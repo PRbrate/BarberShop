@@ -16,9 +16,7 @@ using System.Text;
 
 namespace BarberShop.Api.Controllers.v1
 {
-    [Authorize]
-    [ApiVersion("1.0")]
-    [Route("api/v{version:apiVersion}/[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
     public class AuthController : ApiControllerBase
     {
@@ -34,6 +32,7 @@ namespace BarberShop.Api.Controllers.v1
             _jwtSettings = jwtSettings.Value;
         }
 
+        [AllowAnonymous]
         [HttpPost("register")]
         public async Task<IActionResult> Register(RegisterUserDto registerUser)
         {

@@ -19,39 +19,14 @@ namespace BarberShop.Application.Services
             _userRepository = repository;
         }
 
-        public async Task<bool> CreateUser(UserDto userDto)
+        public Task<Response<string>> Authenticate(string email, string password)
         {
-            if (!EmailValidatorService.VerifyEmail(userDto.Email) || !PasswordValidatorSerivce.VerifyPassword(userDto.Password) || await _userRepository.EmailUserExists(userDto.Email) == true) return false; 
-
-            var user = AutoMapperUser.Map(userDto);
-
-            user.Password = PasswordCryptographyService.Cryptography(user.Password);
-            await _userRepository.Create(user);
-            user.Password = "";
-
-            return true;
+            throw new NotImplementedException();
         }
 
-        public async Task<Response<string>> Authenticate(string email, string password)
+        public Task<bool> CreateUser(UserDto users)
         {
-            var response = new Response<string>();
-
-            if (!EmailValidatorService.VerifyEmail(email) || !PasswordValidatorSerivce.VerifyPassword(password)) { response.Success = false; return response; }
-
-            var user = await _userRepository.GetByEmailAsync(email);
-
-            if(user.Id == Guid.Empty) { response.Success = false; return response; }
-
-            
-            if(!PasswordCryptographyService.VerifyPassword(password, user.Password)){ response.Success = false; return response; }
-
-            var token = TokenService.GenerateToken(user);
-
-            response.Data = token;
-
-            return response;
-
+            throw new NotImplementedException();
         }
-
     }
 }
