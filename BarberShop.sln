@@ -7,21 +7,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{02EA681E-C7D
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{D9FF22CE-98F9-495B-86E2-D5C8B914630A}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "core", "core", "{55A4A7E0-91A5-4B3F-8CDD-681198A41DD0}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{55A4A7E0-91A5-4B3F-8CDD-681198A41DD0}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "facade", "facade", "{5F107EAE-55E8-48F9-B55E-2C728806944F}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarberShop.Core", "src\Core\BarberShop.Core\BarberShop.Core.csproj", "{75C6AF57-9ABB-33CF-8488-AD2F4D8C0E5A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BarberShop.Core", "src\Core\BarberShop.Core\BarberShop.Core.csproj", "{75C6AF57-9ABB-33CF-8488-AD2F4D8C0E5A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BarberShop", "BarberShop", "{556FC333-C7A3-47C2-AF8C-A4AD052831F1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarberShop.Api", "src\Services\BarberShop\BarberShop.Api\BarberShop.Api.csproj", "{87037303-BA30-FE17-2EF4-3E5D33A7D7BB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BarberShop.Api", "src\Services\BarberShop\BarberShop.Api\BarberShop.Api.csproj", "{87037303-BA30-FE17-2EF4-3E5D33A7D7BB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarberShop.Application", "src\Services\BarberShop\BarberShop.Application\BarberShop.Application.csproj", "{F0090E87-9CE0-0255-FA80-9B3F7A005BDF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BarberShop.Application", "src\Services\BarberShop\BarberShop.Application\BarberShop.Application.csproj", "{F0090E87-9CE0-0255-FA80-9B3F7A005BDF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarberShop.Data", "src\Services\BarberShop\BarberShop.Data\BarberShop.Data.csproj", "{DF049194-F33C-3EF3-EBA1-B832A2AD8E65}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BarberShop.Data", "src\Services\BarberShop\BarberShop.Data\BarberShop.Data.csproj", "{DF049194-F33C-3EF3-EBA1-B832A2AD8E65}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarberShop.Domain", "src\Services\BarberShop\BarberShop.Domain\BarberShop.Domain.csproj", "{A6071F38-D1E5-D3DA-743D-6804613ED066}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BarberShop.Domain", "src\Services\BarberShop\BarberShop.Domain\BarberShop.Domain.csproj", "{A6071F38-D1E5-D3DA-743D-6804613ED066}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -56,7 +54,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{D9FF22CE-98F9-495B-86E2-D5C8B914630A} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{55A4A7E0-91A5-4B3F-8CDD-681198A41DD0} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
-		{5F107EAE-55E8-48F9-B55E-2C728806944F} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{75C6AF57-9ABB-33CF-8488-AD2F4D8C0E5A} = {55A4A7E0-91A5-4B3F-8CDD-681198A41DD0}
 		{556FC333-C7A3-47C2-AF8C-A4AD052831F1} = {D9FF22CE-98F9-495B-86E2-D5C8B914630A}
 		{87037303-BA30-FE17-2EF4-3E5D33A7D7BB} = {556FC333-C7A3-47C2-AF8C-A4AD052831F1}
