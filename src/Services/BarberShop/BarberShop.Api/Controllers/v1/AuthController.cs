@@ -22,14 +22,13 @@ namespace BarberShop.Api.Controllers.v1
     {
         private readonly SignInManager<User> _signInManager;
         public readonly UserManager<User> _userManager;
-        private readonly IUserRepository _userRepositoy;
         private readonly JwtSettings _jwtSettings;
 
-        public AuthController(SignInManager<User> signInManager, IUserRepository userRepositoy, IOptions<JwtSettings> jwtSettings, INotifier notifier, IUser user) : base(notifier, user)
+        public AuthController(SignInManager<User> signInManager, UserManager<User> userManager,IOptions<JwtSettings> jwtSettings, INotifier notifier, IUser user) : base(notifier, user)
         {
             _signInManager = signInManager;
-            _userRepositoy = userRepositoy;
             _jwtSettings = jwtSettings.Value;
+            _userManager = userManager;
         }
 
         [AllowAnonymous]

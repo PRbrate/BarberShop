@@ -10,8 +10,8 @@ namespace BarberShop.Application.MappingsConfig
             Id = userDto.id,
             Name = userDto.Name,
             Email = userDto.Email,
-            Adress = userDto.Address,
-            Password = userDto.Password
+            Address = userDto.Address,
+            PasswordHash = userDto.Password
         };
 
         public static User Map(this RegisterUserDto userDto) => new User
@@ -19,10 +19,10 @@ namespace BarberShop.Application.MappingsConfig
             Id = userDto.Id.ToString(),
             Name = userDto.Name,
             Email = userDto.Email,
-            Adress = userDto.Address,
-            Password = userDto.Password
+            Address = userDto.Address,
+            PasswordHash = userDto.Password
         };
         public static UserDto Map(this User user) => new
-            (user.Id, user.Name, user.Email, user.Adress, user.Password);
+            (user.Id, user.Name, user.Email, user.Address, user.PasswordHash);
     }
 }

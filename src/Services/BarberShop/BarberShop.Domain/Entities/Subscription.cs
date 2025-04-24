@@ -7,7 +7,7 @@ namespace BarberShop.Domain.Entities
         public bool Status { get; set; }
         public string PriceId { get; set; }
 
-        public Guid UserId { get; set; }
+        public string UserId { get; set; }
         public User User { get; set; }
     }
 }

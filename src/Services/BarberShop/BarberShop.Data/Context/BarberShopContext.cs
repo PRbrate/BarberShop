@@ -1,13 +1,12 @@
 ﻿using BarberShop.Domain.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 namespace BarberShop.Data.Context
 {
     public class BarberShopContext : IdentityDbContext<User>
     {
-        public BarberShopContext(DbContextOptions<BarberShopContext> options) : base(options)
-        {
-        }
+        public BarberShopContext(DbContextOptions<BarberShopContext> options) : base(options){}
 
         public DbSet<User> User { get; set; }
         public DbSet<Haircut> Haircut { get; set; }
@@ -28,9 +27,14 @@ namespace BarberShop.Data.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.HasDefaultSchema("dbo");
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(BarberShopContext).Assembly);
+
+            modelBuilder.Entity<IdentityUserLogin<string>>()
+                .HasKey(login => login.UserId);
 
             modelBuilder.Entity<User>()
                 .HasOne(u => u.Subscription)
