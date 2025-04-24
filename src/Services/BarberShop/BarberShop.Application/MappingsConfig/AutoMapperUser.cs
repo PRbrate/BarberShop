@@ -16,9 +16,9 @@ namespace BarberShop.Application.MappingsConfig
 
         public static User Map(this RegisterUserDto userDto) => new User
         {
-            Id = userDto.Id.ToString(),
             Name = userDto.Name,
             Email = userDto.Email,
+            UserName = userDto.Email.Split('@')[0],
             Address = userDto.Address,
             PasswordHash = userDto.Password
         };
