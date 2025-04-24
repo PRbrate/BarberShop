@@ -9,9 +9,7 @@ namespace BarberShop.Core.Base
     public class ApiControllerBase : ControllerBase
     {
         private readonly INotifier _notifier;
-
         public readonly IUser _appUser;
-        //public readonly ITenantSetter _setter;
         protected long ContaId { get; set; }
         protected string UserId { get; set; }
         protected bool AuthenticatedUser { get; set; }
@@ -26,7 +24,6 @@ namespace BarberShop.Core.Base
                 UserId = appUser.GetUserId();
                 ContaId = appUser.GetAccountId();
                 AuthenticatedUser = true;
-                //_setter.SetTenant(appUser.GetAccountId());
             }
             //_auditoria = auditoria;
         }
