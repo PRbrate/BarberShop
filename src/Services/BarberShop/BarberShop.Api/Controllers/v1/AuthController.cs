@@ -23,7 +23,7 @@ namespace BarberShop.Api.Controllers.v1
         public readonly UserManager<User> _userManager;
         private readonly JwtSettings _jwtSettings;
 
-        public AuthController(SignInManager<User> signInManager, UserManager<User> userManager,IOptions<JwtSettings> jwtSettings, INotifier notifier, IUser user) : base(notifier, user)
+        public AuthController(SignInManager<User> signInManager, UserManager<User> userManager, IOptions<JwtSettings> jwtSettings, INotifier notifier, IUser user) : base(notifier, user)
         {
             _signInManager = signInManager;
             _jwtSettings = jwtSettings.Value;
@@ -50,7 +50,7 @@ namespace BarberShop.Api.Controllers.v1
             }
             return CustomResponse();
 
-        } 
+        }
 
         [AllowAnonymous]
         [HttpPost("login")]
@@ -58,13 +58,18 @@ namespace BarberShop.Api.Controllers.v1
         {
             if (!ModelState.IsValid) return ValidationProblem(ModelState);
 
-            var result = await _signInManager.PasswordSignInAsync(loginUser.Email, loginUser.Password, false, true);
+            var user = await _userManager.FindByEmailAsync(loginUser.Email);
+
+            if (user == null)
+            {
+                NotifyError("Login inválido.");
+                return CustomResponse();
+            }
+            var result = await _signInManager.PasswordSignInAsync(user, loginUser.Password, false, true);
 
             if (result.Succeeded)
-            {
-
                 return CustomResponse(await GenerateJwt(loginUser.Email));
-            }
+
             if (result.IsLockedOut)
             {
                 NotifyError("Usuário temporariamente bloqueado por tentativas inválidas");
