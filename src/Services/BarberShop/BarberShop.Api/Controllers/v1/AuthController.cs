@@ -1,6 +1,5 @@
 ﻿using BarberShop.Application.Dtos;
 using BarberShop.Application.MappingsConfig;
-using BarberShop.Application.Services.OtherServices;
 using BarberShop.Core.Base;
 using BarberShop.Core.Base.Interfaces;
 using BarberShop.Data.Repositories.Interfaces;
@@ -52,7 +51,7 @@ namespace BarberShop.Api.Controllers.v1
             }
             return CustomResponse();
 
-        }
+        } 
 
         [AllowAnonymous]
         [HttpPost("login")]
@@ -93,26 +92,8 @@ namespace BarberShop.Api.Controllers.v1
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_jwtSettings.Secret);
 
-
-            //foreach (var role in roles)
-            //{
-            //    claims.Add(new Claim(ClaimTypes.Role, role));
-            //}
-            //var tokenHandler = new JwtSecurityTokenHandler();
-            //var key = Encoding.ASCII.GetBytes(_jwtSettings.Segredo);
-
             var securityTokenDescriptor = new SecurityTokenDescriptor
             {
-                //Subject = new ClaimsIdentity(new Claim[]
-                //{
-                //    //new Claim(ClaimTypes.Name, userLogin.Email),
-                //    //new Claim(ClaimTypes.Role, "Admin"),
-                //    //new Claim(ClaimTypes.Email, userLogin.Email),
-                //    //new Claim("Produto", "Cadastro"),
-                //    //new Claim("lastAccountId", user.ContaId.ToString()),
-                //    //new Claim("slug", user.ClienteSlug),
-                //    //new Claim("id", user.Id.ToString()),
-                //}),
                 Subject = new ClaimsIdentity(claims),
                 Issuer = _jwtSettings.Emissor,
                 Audience = _jwtSettings.Audience,
