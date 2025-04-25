@@ -23,6 +23,14 @@ namespace BarberShop.Data.Repositories
 
             return user;
         }
+        public async Task<User> GetFindByEmailAsync(string email)
+        {
+            var user = await _context.Users
+                        .Include(u => u.Subscriptions)
+                        .FirstOrDefaultAsync(u => u.Email == email);
+
+            return user;
+        }
 
     }
 }

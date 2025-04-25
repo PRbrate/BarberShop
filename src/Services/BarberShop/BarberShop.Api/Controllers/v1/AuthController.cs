@@ -1,5 +1,7 @@
 ﻿using BarberShop.Application.Dtos;
 using BarberShop.Application.MappingsConfig;
+using BarberShop.Application.Response;
+using BarberShop.Application.Services.Interfaces;
 using BarberShop.Core.Base;
 using BarberShop.Core.Base.Interfaces;
 using BarberShop.Data.Repositories.Interfaces;
@@ -9,6 +11,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using System.Data;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -22,12 +25,14 @@ namespace BarberShop.Api.Controllers.v1
         private readonly SignInManager<User> _signInManager;
         public readonly UserManager<User> _userManager;
         private readonly JwtSettings _jwtSettings;
+        private readonly IUserService _userService;
 
-        public AuthController(SignInManager<User> signInManager, UserManager<User> userManager, IOptions<JwtSettings> jwtSettings, INotifier notifier, IUser user) : base(notifier, user)
+        public AuthController(SignInManager<User> signInManager, UserManager<User> userManager, IOptions<JwtSettings> jwtSettings, INotifier notifier, IUser user, IUserService userService) : base(notifier, user)
         {
             _signInManager = signInManager;
             _jwtSettings = jwtSettings.Value;
             _userManager = userManager;
+            _userService = userService;
         }
 
         [AllowAnonymous]
@@ -58,7 +63,7 @@ namespace BarberShop.Api.Controllers.v1
         {
             if (!ModelState.IsValid) return ValidationProblem(ModelState);
 
-            var user = await _userManager.FindByEmailAsync(loginUser.Email);
+            var user = await _userService.GetFindByEmailAsync(loginUser.Email);
 
             if (user == null)
             {
@@ -81,7 +86,7 @@ namespace BarberShop.Api.Controllers.v1
         }
 
 
-        private async Task<string> GenerateJwt(User user)
+        private async Task<UserToken> GenerateJwt(User user)
         {
 
             var claims = new List<Claim>
@@ -108,7 +113,12 @@ namespace BarberShop.Api.Controllers.v1
 
             var encodedToken = tokenHandler.WriteToken(token);
 
-            return await Task.FromResult(encodedToken);
+            var tokenModel = new UserToken
+            {
+                User = user.Map(),
+                AccessToken = encodedToken
+            };
+            return await Task.FromResult(tokenModel);
         }
 
     }

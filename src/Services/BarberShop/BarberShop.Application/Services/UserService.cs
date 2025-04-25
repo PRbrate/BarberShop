@@ -24,9 +24,9 @@ namespace BarberShop.Application.Services
             throw new NotImplementedException();
         }
 
-        public Task<bool> CreateUser(UserDto users)
+        public async Task<User> GetFindByEmailAsync(string email)
         {
-            throw new NotImplementedException();
+            return await _userRepository.GetFindByEmailAsync(email);
         }
-    }
+        }
 }
