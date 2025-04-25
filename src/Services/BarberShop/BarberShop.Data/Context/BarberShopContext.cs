@@ -37,9 +37,9 @@ namespace BarberShop.Data.Context
                 .HasKey(login => login.UserId);
 
             modelBuilder.Entity<User>()
-                .HasOne(u => u.Subscription)
+                .HasMany(u => u.Subscriptions)
                 .WithOne(s => s.User)
-                .HasForeignKey<Subscription>(s => s.UserId);
+                .HasForeignKey(s => s.UserId);
 
             modelBuilder.Entity<User>()
                 .HasMany(u => u.Haircuts)
