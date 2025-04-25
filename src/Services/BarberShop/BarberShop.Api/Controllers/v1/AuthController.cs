@@ -68,7 +68,7 @@ namespace BarberShop.Api.Controllers.v1
             var result = await _signInManager.PasswordSignInAsync(user, loginUser.Password, false, true);
 
             if (result.Succeeded)
-                return CustomResponse(await GenerateJwt(loginUser.Email));
+                return CustomResponse(await GenerateJwt(user));
 
             if (result.IsLockedOut)
             {
@@ -81,16 +81,15 @@ namespace BarberShop.Api.Controllers.v1
         }
 
 
-        private async Task<string> GenerateJwt(string email)
+        private async Task<string> GenerateJwt(User user)
         {
-            var user = await _userManager.FindByEmailAsync(email);
-
 
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, user.Name),
                 new Claim(ClaimTypes.Email, user.Email),
                 new Claim("UserId", user.Id.ToString()),
+                new Claim("Address",user.Address),
 
             };
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -99,7 +98,7 @@ namespace BarberShop.Api.Controllers.v1
             var securityTokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
-                Issuer = _jwtSettings.Emissor,
+                Issuer = _jwtSettings.Issuer,
                 Audience = _jwtSettings.Audience,
                 Expires = DateTime.UtcNow.AddHours(_jwtSettings.ExpireHours),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
@@ -109,7 +108,7 @@ namespace BarberShop.Api.Controllers.v1
 
             var encodedToken = tokenHandler.WriteToken(token);
 
-            return encodedToken;
+            return await Task.FromResult(encodedToken);
         }
 
     }
