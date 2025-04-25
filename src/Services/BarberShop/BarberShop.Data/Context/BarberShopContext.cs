@@ -41,15 +41,23 @@ namespace BarberShop.Data.Context
                 .WithOne(s => s.User)
                 .HasForeignKey(s => s.UserId);
 
-            modelBuilder.Entity<User>()
-                .HasMany(u => u.Haircuts)
-                .WithOne(h => h.User)
-                .HasForeignKey(h => h.UserId);
+            modelBuilder.Entity<Haircut>()
+                .HasOne(u => u.User)
+                .WithMany(h => h.Haircuts)
+                .HasForeignKey(h => h.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<User>()
-                .HasMany(u => u.Services)
-                .WithOne(s => s.User)
-                .HasForeignKey(s => s.UserId);
+            modelBuilder.Entity<Service>()
+                .HasOne(u => u.User)
+                .WithMany(s => s.Services)
+                .HasForeignKey(s => s.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Subscription>()
+                .HasOne(u => u.User)
+                .WithMany(s => s.Subscriptions)
+                .HasForeignKey(s => s.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Service>()
                 .Property(p => p.CreatedAt)
