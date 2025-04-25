@@ -36,7 +36,7 @@ namespace BarberShop.Api.Controllers.v1
         {
             if (!ModelState.IsValid) return ValidationProblem(ModelState);
 
-            var user = AutoMapperUser.Map(registerUser);
+            var user = registerUser.Map();
 
             var result = await _userManager.CreateAsync(user, registerUser.Password);
 
