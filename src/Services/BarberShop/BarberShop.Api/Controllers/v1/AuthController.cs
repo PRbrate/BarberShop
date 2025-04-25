@@ -1,20 +1,18 @@
-﻿using BarberShop.Application.Dtos;
-using BarberShop.Application.MappingsConfig;
+﻿using BarberShop.Application;
 using BarberShop.Application.Response;
 using BarberShop.Application.Services.Interfaces;
 using BarberShop.Core.Base;
 using BarberShop.Core.Base.Interfaces;
-using BarberShop.Data.Repositories.Interfaces;
 using BarberShop.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using System.Data;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+
 
 namespace BarberShop.Api.Controllers.v1
 {

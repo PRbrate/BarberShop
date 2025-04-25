@@ -1,7 +1,7 @@
-﻿using BarberShop.Application.Dtos;
+﻿
 using BarberShop.Domain.Entities;
 
-namespace BarberShop.Application.MappingsConfig
+namespace BarberShop.Application
 {
     public static class AutoMapperUser
     {
@@ -22,6 +22,6 @@ namespace BarberShop.Application.MappingsConfig
             PasswordHash = userDto.Password
         };
         public static UserDTO Map(this User user) => new
-            (user.Id, user.Name, user.Email, user.Address, user.Subscriptions);
+            (user.Id, user.Name, user.Email, user.Address, user.Subscriptions.Map());
     }
 }

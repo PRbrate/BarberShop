@@ -1,11 +1,6 @@
 ﻿using BarberShop.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace BarberShop.Application.Dtos
+namespace BarberShop.Application
 {
-    public record UserDTO(string id, string Name, string Email, string Address, ICollection<Subscription> Subscriptions);
+    public record UserDTO(string id, string Name, string Email, string Address, List<SubscriptionDTO> Subscriptions);
 }

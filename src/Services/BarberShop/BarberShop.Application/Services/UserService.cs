@@ -1,12 +1,7 @@
-﻿using BarberShop.Application.Dtos;
-using BarberShop.Application.MappingsConfig;
-using BarberShop.Application.Services.Interfaces;
-using BarberShop.Application.Services.OtherServices;
+﻿using BarberShop.Application.Services.Interfaces;
 using BarberShop.Core.Entities;
 using BarberShop.Data.Repositories.Interfaces;
 using BarberShop.Domain.Entities;
-using BarberShop.Domain.Entities.Validations.Services;
-using Microsoft.EntityFrameworkCore;
 
 namespace BarberShop.Application.Services
 {

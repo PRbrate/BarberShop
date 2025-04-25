@@ -1,12 +1,9 @@
-﻿using BarberShop.Application.Dtos;
-using BarberShop.Application.Services.Interfaces;
+﻿using BarberShop.Application.Services.Interfaces;
 using BarberShop.Core.Base;
 using BarberShop.Core.Base.Interfaces;
 using BarberShop.Domain.Entities;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Net;
 
 namespace BarberShop.Api.Controllers.v1
 {

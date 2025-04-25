@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 
-namespace BarberShop.Application.Dtos
+namespace BarberShop.Application
 {
     public class LoginUserDto
     {

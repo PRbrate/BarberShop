@@ -1,11 +1,6 @@
 ﻿using BarberShop.Core.Base.Interfaces;
 using BarberShop.Core.Entities;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BarberShop.Core.Base
 {
@@ -22,7 +17,6 @@ namespace BarberShop.Core.Base
 
         public async Task<T> Create(T entity)
         {
-            ConverteDateTimeToUtc(entity);
             var TCreated = await _dbSet.AddAsync(entity);
             await _context.SaveChangesAsync();
 
@@ -32,7 +26,6 @@ namespace BarberShop.Core.Base
 
         public async Task<T> Delete(T entity)
         {
-            ConverteDateTimeToUtc(entity);
             _context.Attach(entity);
             _context.Entry(entity).State = EntityState.Modified; 
             await _context.SaveChangesAsync();
@@ -52,8 +45,7 @@ namespace BarberShop.Core.Base
 
         public async Task<T> Update(T entity)
         {
-            ConverteDateTimeToUtc(entity);
-            entity.UpdatedAt = DateTime.Now;
+            entity.UpdatedAt = DateTime.UtcNow;
             _dbSet.Attach(entity);
             _context.Entry(entity).State = EntityState.Modified;
             
@@ -67,21 +59,8 @@ namespace BarberShop.Core.Base
             return true;
         }
 
-        private void ConverteDateTimeToUtc<T>(T entidade)
-        {
-            var propertyDateTime = typeof(T).GetProperties()
-                .Where(prop => prop.PropertyType == typeof(DateTime) || prop.PropertyType == typeof(DateTime?));
-
-            foreach (var property in propertyDateTime)
-            {
-                var valorAtual = property.GetValue(entidade) as DateTime?;
-
-                if (valorAtual.HasValue)
-                {
-                    property.SetValue(entidade, valorAtual.Value.ToUniversalTime());
-                }
-            }
-        }
+        public void Dispose() =>
+     _context?.Dispose();
 
     }
 }
