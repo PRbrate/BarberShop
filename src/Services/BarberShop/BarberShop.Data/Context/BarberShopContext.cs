@@ -53,6 +53,12 @@ namespace BarberShop.Data.Context
                 .HasForeignKey(s => s.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            modelBuilder.Entity<Service>()
+                .HasOne(u => u.Haircut)
+                .WithMany(s => s.Services)
+                .HasForeignKey(s => s.HaircutId)
+                .OnDelete(DeleteBehavior.Restrict);
+
             modelBuilder.Entity<Subscription>()
                 .HasOne(u => u.User)
                 .WithMany(s => s.Subscriptions)

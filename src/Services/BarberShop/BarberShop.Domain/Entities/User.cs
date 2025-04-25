@@ -6,9 +6,9 @@ namespace BarberShop.Domain.Entities
     {
         public User()
         {
-            Subscriptions = new List<Subscription>();
-            Haircuts = new List<Haircut>();
-            Services = new List<Service>();
+            Subscriptions = [];
+            Haircuts = [];
+            Services = [];
         }
         public string Name { get; set; }
         public string Address { get; set; }
