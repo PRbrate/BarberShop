@@ -23,5 +23,11 @@ namespace BarberShop.Application.Services
         {
             return await _userRepository.GetFindByEmailAsync(email);
         }
+        public async Task<UserDTO> GetUserFromId(string id)
+        {
+            var user =  await _userRepository.GetUserFromId(id);
+
+            return user.Map();
         }
+    }
 }

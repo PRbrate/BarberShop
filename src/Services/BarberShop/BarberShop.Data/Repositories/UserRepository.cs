@@ -31,6 +31,14 @@ namespace BarberShop.Data.Repositories
 
             return user;
         }
+        public async Task<User> GetUserFromId(string id)
+        {
+            var user = await _context.Users
+                        .Include(u => u.Subscriptions)
+                        .FirstOrDefaultAsync(u => u.Id == id);
+
+            return user;
+        }
 
     }
 }

@@ -22,7 +22,7 @@ namespace BarberShop.Core.Base
             if (appUser.IsAuthenticated())
             {
                 UserId = appUser.GetUserId();
-                ContaId = appUser.GetAccountId();
+                //ContaId = appUser.GetAccountId();
                 AuthenticatedUser = true;
             }
             //_auditoria = auditoria;

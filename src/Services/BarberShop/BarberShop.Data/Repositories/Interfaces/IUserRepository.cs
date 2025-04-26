@@ -11,6 +11,7 @@ namespace BarberShop.Data.Repositories.Interfaces
     public interface IUserRepository 
     {
         Task<List<User>> GetList();
+        Task<User> GetUserFromId(string id);
         Task<User> GetFindByEmailAsync(string email);
         void Dispose();
     }
