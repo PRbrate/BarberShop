@@ -1,12 +1,7 @@
-﻿using BarberShop.Application.Services;
-using BarberShop.Application.Services.Interfaces;
-using BarberShop.Core.Base;
-using BarberShop.Core.Base.Interfaces;
-using BarberShop.Core.Base.Notifications;
+﻿using BarberShop.Application;
+using BarberShop.Core;
 using BarberShop.Core.Extensions.Security;
-using BarberShop.Data.Context;
-using BarberShop.Data.Repositories;
-using BarberShop.Data.Repositories.Interfaces;
+using BarberShop.Data;
 
 namespace BarberShop.Api.ApiConfig
 {

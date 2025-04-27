@@ -1,5 +1,5 @@
 ﻿
-using BarberShop.Domain.Entities;
+using BarberShop.Domain;
 
 namespace BarberShop.Application
 {

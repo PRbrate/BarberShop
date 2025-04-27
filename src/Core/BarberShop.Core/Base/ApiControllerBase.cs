@@ -1,9 +1,7 @@
-﻿using BarberShop.Core.Base.Interfaces;
-using BarberShop.Core.Base.Notifications;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
-namespace BarberShop.Core.Base
+namespace BarberShop.Core
 {
     [ApiController]
     public class ApiControllerBase : ControllerBase

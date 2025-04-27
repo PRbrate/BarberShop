@@ -1,6 +1,6 @@
-﻿using BarberShop.Core.Base.Interfaces;
+﻿
 
-namespace BarberShop.Core.Base.Notifications
+namespace BarberShop.Core
 {
     public class Notifier : INotifier
     {

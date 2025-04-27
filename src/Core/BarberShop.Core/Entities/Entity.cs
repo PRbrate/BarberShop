@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace BarberShop.Core.Entities
+namespace BarberShop.Core
 {
     public abstract class Entity
     {

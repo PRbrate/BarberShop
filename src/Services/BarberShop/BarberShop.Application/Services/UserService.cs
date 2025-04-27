@@ -1,9 +1,8 @@
-﻿using BarberShop.Application.Services.Interfaces;
-using BarberShop.Core.Entities;
-using BarberShop.Data.Repositories.Interfaces;
-using BarberShop.Domain.Entities;
+﻿using BarberShop.Core;
+using BarberShop.Data;
+using BarberShop.Domain;
 
-namespace BarberShop.Application.Services
+namespace BarberShop.Application
 {
     public class UserService : IUserService
     {
@@ -25,9 +24,19 @@ namespace BarberShop.Application.Services
         }
         public async Task<UserDTO> GetUserFromId(string id)
         {
-            var user =  await _userRepository.GetUserFromId(id);
+            var user = await _userRepository.GetUserFromId(id);
 
             return user.Map();
+        }
+        public async Task<bool> Update(UserDTQ userDTQ)
+        {
+            var user = await _userRepository.GetUserFromId(userDTQ.Id);
+            if (user == null) return false;
+
+            user.Name = userDTQ.Name;
+            user.Email = userDTQ.Email;
+
+            return await _userRepository.Update(user);
         }
     }
 }

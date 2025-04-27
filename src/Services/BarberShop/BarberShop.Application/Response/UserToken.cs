@@ -1,4 +1,4 @@
-﻿namespace BarberShop.Application.Response
+﻿namespace BarberShop.Application
 {
     public class UserToken
     {

@@ -1,9 +1,6 @@
 ﻿using BarberShop.Application;
-using BarberShop.Application.Response;
-using BarberShop.Application.Services.Interfaces;
-using BarberShop.Core.Base;
-using BarberShop.Core.Base.Interfaces;
-using BarberShop.Domain.Entities;
+using BarberShop.Core;
+using BarberShop.Domain;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

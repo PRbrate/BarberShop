@@ -1,8 +1,8 @@
-﻿using BarberShop.Domain.Entities;
+﻿using BarberShop.Domain;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-namespace BarberShop.Data.Context
+namespace BarberShop.Data
 {
     public class BarberShopContext : IdentityDbContext<User>
     {

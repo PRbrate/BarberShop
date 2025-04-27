@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace BarberShop.Domain.Entities.Validations.Services
+namespace BarberShop.Domain.Validations.Services
 {
     public static class UserNameValidatorService
     {

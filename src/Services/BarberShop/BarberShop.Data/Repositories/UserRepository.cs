@@ -1,10 +1,8 @@
-﻿using BarberShop.Core.Base;
-using BarberShop.Data.Context;
-using BarberShop.Data.Repositories.Interfaces;
-using BarberShop.Domain.Entities;
+﻿using BarberShop.Data;
+using BarberShop.Domain;
 using Microsoft.EntityFrameworkCore;
 
-namespace BarberShop.Data.Repositories
+namespace BarberShop.Data
 {
     public class UserRepository : IUserRepository
     {
@@ -38,6 +36,13 @@ namespace BarberShop.Data.Repositories
                         .FirstOrDefaultAsync(u => u.Id == id);
 
             return user;
+        }
+        public async Task<bool> Update(User user)
+        {
+            _context.Update(user);
+
+            return await _context.SaveChangesAsync() > 0;
+
         }
 
     }

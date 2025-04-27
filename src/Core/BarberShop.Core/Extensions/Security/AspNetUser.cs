@@ -1,5 +1,4 @@
-﻿using BarberShop.Core.Base.Interfaces;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 
 namespace BarberShop.Core.Extensions.Security

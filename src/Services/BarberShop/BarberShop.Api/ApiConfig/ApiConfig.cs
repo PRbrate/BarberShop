@@ -1,5 +1,5 @@
-﻿using BarberShop.Data.Context;
-using BarberShop.Domain.Entities;
+﻿using BarberShop.Data;
+using BarberShop.Domain;
 using Microsoft.AspNetCore.Identity;
 
 namespace BarberShop.Api.ApiConfig

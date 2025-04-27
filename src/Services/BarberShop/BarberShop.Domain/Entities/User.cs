@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace BarberShop.Domain.Entities
+namespace BarberShop.Domain
 {
     public class User : IdentityUser
     {

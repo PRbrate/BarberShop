@@ -1,4 +1,4 @@
-﻿using BarberShop.Domain.Entities;
+﻿using BarberShop.Domain;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;

@@ -1,8 +1,6 @@
-﻿using BarberShop.Core.Base.Interfaces;
-using BarberShop.Core.Entities;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
-namespace BarberShop.Core.Base
+namespace BarberShop.Core
 {
     public class RepositoryBase<T> : IRepositoryBase<T> where T : Entity
     {

@@ -1,6 +1,6 @@
-﻿using BarberShop.Core.Entities;
+﻿using BarberShop.Core;
 
-namespace BarberShop.Domain.Entities
+namespace BarberShop.Domain
 {
     public class Haircut : Entity
     {

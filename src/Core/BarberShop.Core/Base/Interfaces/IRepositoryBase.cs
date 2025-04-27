@@ -1,11 +1,4 @@
-﻿using BarberShop.Core.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BarberShop.Core.Base.Interfaces
+﻿namespace BarberShop.Core
 {
     public interface IRepositoryBase<T> where T : Entity
     {

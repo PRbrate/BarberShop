@@ -1,18 +1,10 @@
 ﻿using BarberShop.Application;
-using BarberShop.Application.Services.Interfaces;
-using BarberShop.Core.Base;
-using BarberShop.Core.Base.Interfaces;
+using BarberShop.Core;
 using BarberShop.Core.Extensions.Security;
-using BarberShop.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
 
-namespace BarberShop.Api.Controllers.v1
+namespace BarberShop.Api.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
@@ -20,9 +12,6 @@ namespace BarberShop.Api.Controllers.v1
     public class UsersController : ApiControllerBase
     {
         private readonly IUserService _userService;
-        private readonly INotifier _notifier;
-        private readonly UserManager<User> _userManager;
-
         public UsersController(INotifier notifier, IUser user, IUserService userService) : base(notifier, user)
         {
             _userService = userService;
@@ -44,6 +33,27 @@ namespace BarberShop.Api.Controllers.v1
 
             return CustomResponse(userDTO);
 
+        }
+        [HttpPut("update/{id}")]
+        public async Task<IActionResult> Update(string id, UserDTQ user)
+        {
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
+
+            if (id != user.Id)
+            {
+                NotifyError("Incorrect Id");
+                return CustomResponse(user);
+            }
+
+            bool success = await _userService.Update(user);
+
+            if (!success)
+                NotifyError("Failed to update user");
+
+
+            var userDTO = await _userService.GetUserFromId(id);
+
+            return CustomResponse(userDTO);
         }
 
     }

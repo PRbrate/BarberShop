@@ -1,4 +1,4 @@
-﻿using BarberShop.Data.Context;
+﻿using BarberShop.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace BarberShop.Api.ApiConfig
