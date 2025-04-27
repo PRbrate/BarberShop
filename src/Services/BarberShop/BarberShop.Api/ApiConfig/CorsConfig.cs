@@ -6,11 +6,13 @@
         {
             builder.Services.AddCors(options =>
             {
-                options.AddDefaultPolicy(builder => builder
-                .AllowAnyMethod()
-                .AllowAnyHeader()
-                .AllowCredentials()
-                .SetIsOriginAllowed(_ => true));
+                options.AddDefaultPolicy(policy =>
+           policy
+               .WithOrigins("http://localhost:3000")
+               .AllowAnyMethod()
+               .AllowAnyHeader()
+               .AllowCredentials()
+       );
             });
 
             return builder;
