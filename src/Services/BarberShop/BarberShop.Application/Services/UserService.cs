@@ -34,7 +34,7 @@ namespace BarberShop.Application
             if (user == null) return false;
 
             user.Name = userDTQ.Name;
-            user.Email = userDTQ.Email;
+            user.Address = userDTQ.Address;
 
             return await _userRepository.Update(user);
         }
