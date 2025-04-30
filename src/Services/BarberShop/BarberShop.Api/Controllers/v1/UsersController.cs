@@ -1,10 +1,4 @@
-﻿using BarberShop.Application;
-using BarberShop.Core;
-using BarberShop.Core.Extensions.Security;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-
-namespace BarberShop.Api.Controllers
+﻿namespace BarberShop.Api.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
