@@ -1,4 +1,6 @@
-﻿namespace BarberShop.Api.Controllers.v1
+﻿using BarberShop.Application;
+
+namespace BarberShop.Api.Controllers.v1
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -10,7 +12,7 @@
         public HaircurtController(INotifier notifier, IUser user, IUserService userService, IHaircutService haircutService) : base(notifier, user)
         {
             _userService = userService;
-            _haircutService = haircutService;   
+            _haircutService = haircutService;
         }
 
         [HttpPost]
@@ -29,6 +31,36 @@
             if (!sucess) NotifyError("Erro ao Cadastrar Corte");
 
             return CustomResponse(haircutDto);
+
+        }
+
+        [HttpGet("AllHaircut")]
+        public async Task<IActionResult> GetAllHaircuts(int pageIndex = 1, int pageSize = 5)
+        {
+            var userId = User.GetUserId();
+
+            if (string.IsNullOrEmpty(userId))
+                NotifyError("User ID not found.");
+
+            var sucess = await _haircutService.GetAllHaircutAsync(userId, pageIndex, pageSize);
+
+            return CustomResponse(sucess);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetHaircut(Guid id)
+        {
+            var userId = User.GetUserId();
+
+
+            if (string.IsNullOrEmpty(userId))
+                NotifyError("User ID not found.");
+
+            var sucess = await _haircutService.GetHaircut(id, userId);
+
+            if (sucess == null) NotifyError("Erro ao buscar Corte");
+
+            return CustomResponse(sucess);
 
         }
     }

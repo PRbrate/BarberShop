@@ -7,11 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Entities\enums\**" />
     <Compile Remove="Entities\ValidationsService\**" />
-    <EmbeddedResource Remove="Entities\enums\**" />
     <EmbeddedResource Remove="Entities\ValidationsService\**" />
-    <None Remove="Entities\enums\**" />
     <None Remove="Entities\ValidationsService\**" />
   </ItemGroup>
 

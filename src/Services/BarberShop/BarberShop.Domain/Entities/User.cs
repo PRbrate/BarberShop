@@ -13,6 +13,7 @@ namespace BarberShop.Domain
         public string Name { get; set; }
         public string Address { get; set; }
 
+
         public ICollection<Subscription> Subscriptions { get; set; }
         public ICollection<Haircut> Haircuts { get; set; }
         public ICollection<Service> Services { get; set; }

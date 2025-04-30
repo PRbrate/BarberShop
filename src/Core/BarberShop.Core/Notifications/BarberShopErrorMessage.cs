@@ -15,6 +15,7 @@ namespace BarberShop.Core.Notifications
         #region Haircut
         public static string ERROR_VALUE_PRICE = "O valor do corte deve ser informado!";
         public static string ERROR_HAIRCUT_EXISTS = "Corte de Cabelo Já cadastrado.";
+        public static string ERROR_HAIRCUT_NOT_FOUND = "Corte de Cabelo não encontrado";
         #endregion
     }
 }
