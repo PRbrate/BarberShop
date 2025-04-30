@@ -3,22 +3,22 @@ using FluentValidation.Results;
 
 namespace BarberShop.Core
 {
-    public abstract class ServiceBase
+    public class ServiceBase
     {
         private readonly INotifier _notifier;
         public ServiceBase(INotifier notifier)
         {
             _notifier = notifier;
         }
-        protected void Notificar(ValidationResult validationResult)
-            => validationResult.Errors.ForEach(erro => Notificar(erro.ErrorMessage));
+        protected void Notifier(ValidationResult validationResult)
+            => validationResult.Errors.ForEach(erro => Notifier(erro.ErrorMessage));
 
-        protected void Notificar(string mensagem)
+        protected void Notifier(string message)
         {
-            _notifier.Handle(new Notification(mensagem));
+            _notifier.Handle(new Notification(message));
         }
 
-        protected bool ExecutarValidacao<TValidation, TEntity>(TValidation validation, TEntity entity)
+        protected bool ExecuteVatidation<TValidation, TEntity>(TValidation validation, TEntity entity)
             where TValidation : AbstractValidator<TEntity>
             where TEntity : Entity
         {
@@ -26,7 +26,7 @@ namespace BarberShop.Core
 
             if (validator.IsValid) return true;
 
-            Notificar(validator);
+            Notifier(validator);
 
             return false;
         }

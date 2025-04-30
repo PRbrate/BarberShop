@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Collections.Generic;
+using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
@@ -38,6 +40,10 @@ namespace BarberShop.Core
         }
 
         public async Task<int> SaveChanges() => await _context.SaveChangesAsync();
+
+        public async Task<int> SaveChanges() => await _context.SaveChangesAsync();
+
+        public async Task<IEnumerable<T>> Get(Expression<Func<T, bool>> predicate) => await _dbSet.AsNoTrackingWithIdentityResolution().Where(predicate).ToListAsync();
 
         public void Dispose() =>
        _context?.Dispose();

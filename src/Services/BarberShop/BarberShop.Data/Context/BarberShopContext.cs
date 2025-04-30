@@ -2,11 +2,12 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BarberShop.Data
 {
     public class BarberShopContext : IdentityDbContext<User>
     {
-        public BarberShopContext(DbContextOptions<BarberShopContext> options) : base(options){}
+        public BarberShopContext(DbContextOptions<BarberShopContext> options) : base(options) { }
 
         public DbSet<User> User { get; set; }
         public DbSet<Haircut> Haircut { get; set; }
@@ -79,6 +80,25 @@ namespace BarberShop.Data
                 .Property(p => p.CreatedAt)
                 .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .ValueGeneratedOnAdd();
+
+            var dateTimeConverter = new ValueConverter<DateTime, DateTime>(
+               v => v.ToUniversalTime(),
+               v => DateTime.SpecifyKind(v, DateTimeKind.Utc)
+            );
+
+            // Aplica o converter a todas as propriedades DateTime
+            foreach (var entityType in modelBuilder.Model.GetEntityTypes())
+            {
+                var properties = entityType.ClrType.GetProperties()
+                    .Where(p => p.PropertyType == typeof(DateTime));
+
+                foreach (var property in properties)
+                {
+                    modelBuilder.Entity(entityType.Name)
+                        .Property(property.Name)
+                        .HasConversion(dateTimeConverter);
+                }
+            }
 
         }
 
