@@ -1,5 +1,6 @@
 ﻿using BarberShop.Application;
 using BarberShop.Core;
+using BarberShop.Core.Base.Controller;
 using BarberShop.Domain;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;

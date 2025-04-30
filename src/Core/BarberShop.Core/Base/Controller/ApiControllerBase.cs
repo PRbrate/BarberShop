@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
-namespace BarberShop.Core
+namespace BarberShop.Core.Base.Controller
 {
     [ApiController]
     public class ApiControllerBase : ControllerBase

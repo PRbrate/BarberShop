@@ -13,16 +13,11 @@ namespace BarberShop.Application
             _userRepository = repository;
         }
 
-        public Task<Response<string>> Authenticate(string email, string password)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<User> GetFindByEmailAsync(string email)
         {
             return await _userRepository.GetFindByEmailAsync(email);
         }
-        public async Task<UserDTO> GetUserFromId(string id)
+        public async Task<UserDTO> GetUserById(string id)
         {
             var user = await _userRepository.GetUserFromId(id);
 

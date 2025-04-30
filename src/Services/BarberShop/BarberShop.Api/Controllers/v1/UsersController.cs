@@ -1,5 +1,6 @@
 ﻿using BarberShop.Application;
 using BarberShop.Core;
+using BarberShop.Core.Base.Controller;
 using BarberShop.Core.Extensions.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -26,7 +27,7 @@ namespace BarberShop.Api.Controllers
             if (string.IsNullOrEmpty(userId))
                 NotifyError("User ID not found.");
 
-            var userDTO = await _userService.GetUserFromId(userId);
+            var userDTO = await _userService.GetUserById(userId);
 
             if (userDTO == null)
                 NotifyError("User not found.");
@@ -51,7 +52,7 @@ namespace BarberShop.Api.Controllers
                 NotifyError("Failed to update user");
 
 
-            var userDTO = await _userService.GetUserFromId(id);
+            var userDTO = await _userService.GetUserById(id);
 
             return CustomResponse(userDTO);
         }
