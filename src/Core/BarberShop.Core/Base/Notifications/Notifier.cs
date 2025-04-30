@@ -1,6 +1,4 @@
-﻿
-
-namespace BarberShop.Core
+﻿namespace BarberShop.Core
 {
     public class Notifier : INotifier
     {

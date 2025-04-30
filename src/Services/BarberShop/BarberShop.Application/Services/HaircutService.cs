@@ -1,11 +1,7 @@
-﻿using BarberShop.Application.Dtos;
-using BarberShop.Application.DTQ;
-using BarberShop.Application.MappingsConfig;
-using BarberShop.Application.Services.Interfaces;
+﻿using BarberShop.Application.MappingsConfig;
 using BarberShop.Core;
-using BarberShop.Core.Base.Services;
 using BarberShop.Core.Notifications;
-using BarberShop.Data.Repositories.Interfaces;
+using BarberShop.Data;
 using BarberShop.Domain.Validations;
 
 namespace BarberShop.Application.Services
@@ -25,7 +21,7 @@ namespace BarberShop.Application.Services
 
             if (!ExecuteVatidation(new HaircutValidation(), haircut)) return false;
 
-            if(_haircutRepository.Get( p=> p.Name == haircut.Name && p.UserId == haircut.UserId).Result.Any())
+            if(_haircutRepository.Search( p=> p.Name == haircut.Name && p.UserId == haircut.UserId).Result.Any())
             {
                 Notifier(BarberShopErrorMessage.ERROR_HAIRCUT_EXISTS);
                 return false;

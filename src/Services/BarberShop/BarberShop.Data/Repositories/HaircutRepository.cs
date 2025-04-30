@@ -1,8 +1,7 @@
 ﻿using BarberShop.Core;
-using BarberShop.Data.Repositories.Interfaces;
 using BarberShop.Domain;
 
-namespace BarberShop.Data.Repositories
+namespace BarberShop.Data
 {
     public class HaircutRepository : RepositoryBase<Haircut>, IHaircutRepository
     {

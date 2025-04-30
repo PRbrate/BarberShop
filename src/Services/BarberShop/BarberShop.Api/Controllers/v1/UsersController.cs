@@ -1,8 +1,4 @@
-﻿using BarberShop.Application;
-using BarberShop.Core;
-using BarberShop.Core.Extensions.Security;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using BarberShop.Core;
 
 namespace BarberShop.Api.Controllers
 {

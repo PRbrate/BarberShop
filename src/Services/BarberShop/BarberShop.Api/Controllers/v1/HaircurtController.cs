@@ -1,16 +1,4 @@
-﻿using BarberShop.Application;
-using BarberShop.Application.Dtos;
-using BarberShop.Application.DTQ;
-using BarberShop.Application.Services.Interfaces;
-using BarberShop.Core;
-using BarberShop.Core.Base.Controller;
-using BarberShop.Core.Extensions.Security;
-using BarberShop.Domain;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-
-namespace BarberShop.Api.Controllers.v1
+﻿namespace BarberShop.Api.Controllers.v1
 {
     [Route("api/[controller]")]
     [ApiController]

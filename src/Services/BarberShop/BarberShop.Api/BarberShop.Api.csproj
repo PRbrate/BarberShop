@@ -24,7 +24,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Core\BarberShop.Core\BarberShop.Core.csproj" />
     <ProjectReference Include="..\BarberShop.Application\BarberShop.Application.csproj" />
     <ProjectReference Include="..\BarberShop.Data\BarberShop.Data.csproj" />
   </ItemGroup>

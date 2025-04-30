@@ -12,7 +12,7 @@ namespace BarberShop.Application
         {
             var schedule = scheduleDTQ.Map();
 
-            if (!ExecutarValidacao(new ScheduleValidation(), schedule)) return false;
+            if (!ExecuteVatidation(new ScheduleValidation(), schedule)) return false;
 
 
             return await _scheduleRepository.Create(schedule);
