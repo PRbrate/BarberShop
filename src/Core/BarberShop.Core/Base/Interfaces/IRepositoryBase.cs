@@ -1,13 +1,14 @@
-﻿namespace BarberShop.Core
+﻿using System.Linq.Expressions;
+
+namespace BarberShop.Core
 {
-    public interface IRepositoryBase<T> where T : Entity
+    public interface IRepositoryBase<TEntity> : IDisposable where TEntity : Entity
     {
-        Task<T> GetAsync(int id);
-        IQueryable<T> GetAllAsync();
-        Task<T> Create(T entity);
-        Task<T> Update(T entity);
-        Task<T> Delete(T entity);
-        public bool Detached(T entity);
+        Task<IEnumerable<TEntity>> Search(Expression<Func<TEntity, bool>> predicate);
+        Task<bool> Create(TEntity objeto);
+        Task<bool> Update(TEntity objeto);
+        Task Delete(Guid id);
+        Task<int> SaveChanges();
 
     }
 }

@@ -1,64 +1,46 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq.Expressions;
 
 namespace BarberShop.Core
 {
-    public class RepositoryBase<T> : IRepositoryBase<T> where T : Entity
+    public abstract class RepositoryBase<TEntity> : IRepositoryBase<TEntity> where TEntity : Entity, new()
     {
+        private readonly DbSet<TEntity> DbSet;
         private readonly DbContext _context;
-        private readonly DbSet<T> _dbSet;
-
         public RepositoryBase(DbContext context)
         {
             _context = context;
-            _dbSet = _context.Set<T>();
+            DbSet = context.Set<TEntity>();
         }
-
-        public async Task<T> Create(T entity)
+        public async Task<IEnumerable<TEntity>> Search(Expression<Func<TEntity, bool>> predicate) => await DbSet.AsNoTrackingWithIdentityResolution().Where(predicate).ToListAsync();
+        public virtual async Task<bool> Create(TEntity entity)
         {
-            var TCreated = await _dbSet.AddAsync(entity);
-            await _context.SaveChangesAsync();
-
-            return entity;
-
+            DbSet.Add(entity);
+            return await SaveChanges() > 0;
         }
-
-        public async Task<T> Delete(T entity)
+        public virtual async Task<bool> Update(TEntity entity)
         {
-            _context.Attach(entity);
-            _context.Entry(entity).State = EntityState.Modified; 
-            await _context.SaveChangesAsync();
-            return entity;
-
-        }
-
-        public IQueryable<T> GetAllAsync()
-        {
-            return _dbSet.AsQueryable<T>();
-        }
-
-        public async Task<T> GetAsync(int id)
-        {
-            return await _dbSet.FindAsync(id);
-        }
-
-        public async Task<T> Update(T entity)
-        {
-            entity.UpdatedAt = DateTime.UtcNow;
-            _dbSet.Attach(entity);
             _context.Entry(entity).State = EntityState.Modified;
-            
-            await _context.SaveChangesAsync();
-            return entity;
+
+            return await SaveChanges() > 0;
+        }
+        public virtual async Task<bool> UpdateList(List<TEntity> entities)
+        {
+            entities.ForEach(entity => _context.Entry(entity).State = EntityState.Modified);
+
+            return await SaveChanges() > 0;
+        }
+        public virtual async Task Delete(Guid id)
+        {
+            DbSet.Remove(new TEntity { Id = id });
+            await SaveChanges();
         }
 
-        public bool Detached(T entity)
-        {
-            _dbSet.Entry(entity).State = EntityState.Detached;
-            return true;
-        }
+        public async Task<int> SaveChanges() => await _context.SaveChangesAsync();
 
         public void Dispose() =>
-     _context?.Dispose();
+       _context?.Dispose();
 
     }
 }

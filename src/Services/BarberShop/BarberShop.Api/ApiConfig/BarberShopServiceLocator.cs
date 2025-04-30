@@ -1,6 +1,4 @@
-﻿using BarberShop.Application;
-using BarberShop.Core;
-using BarberShop.Core.Extensions.Security;
+﻿using BarberShop.Application.Services;
 using BarberShop.Data;
 
 namespace BarberShop.Api.ApiConfig
@@ -17,6 +15,8 @@ namespace BarberShop.Api.ApiConfig
 
 
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IScheduleService, ScheduleService>();
+            services.AddScoped<IJwtService, JwtService>();
             #endregion
 
             #region repositories

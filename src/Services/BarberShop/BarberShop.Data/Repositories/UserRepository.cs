@@ -1,17 +1,11 @@
-﻿using BarberShop.Data;
-using BarberShop.Domain;
+﻿using BarberShop.Domain;
 using Microsoft.EntityFrameworkCore;
 
 namespace BarberShop.Data
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository(BarberShopContext context) : IUserRepository
     {
-        private readonly BarberShopContext _context;
-
-        public UserRepository(BarberShopContext context)
-        {
-            _context = context;
-        }
+        private readonly BarberShopContext _context = context;
 
         public void Dispose() => _context.Dispose();
 
