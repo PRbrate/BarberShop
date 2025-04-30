@@ -22,7 +22,7 @@ namespace BarberShop.Application.Services
 
             if (!ExecuteVatidation(new HaircutValidation(), haircut)) return false;
 
-            if (_haircutRepository.Search(p => p.Name == haircut.Name && p.UserId == haircut.UserId).Result.Any())
+            if (_haircutRepository.Search(p => p.Name == haircut.Name).Result.Any())
             {
                 Notifier(BarberShopErrorMessage.ERROR_HAIRCUT_EXISTS);
                 return false;
@@ -35,9 +35,9 @@ namespace BarberShop.Application.Services
 
         }
 
-        public async Task<bool> DeleteHaircut(Guid haircutId, string userId)
+        public async Task<bool> DeleteHaircut(Guid haircutId)
         {
-            var query =  _haircutRepository.Search(p =>p.Id == haircutId && p.UserId == userId).Result.FirstOrDefault();
+            var query =  _haircutRepository.Search(p =>p.Id == haircutId).Result.FirstOrDefault();
 
             if (query == null)
             {
@@ -51,9 +51,9 @@ namespace BarberShop.Application.Services
 
         }
 
-        public async Task<PaginationResult<HaircutDto>> GetAllHaircutAsync(string userId, int pageIndex, int pageSize)
+        public async Task<PaginationResult<HaircutDto>> GetAllHaircutAsync(int pageIndex, int pageSize)
         {
-            var query = await _haircutRepository.Search(p => p.UserId == userId && p.Status == true);
+            var query = await _haircutRepository.Search(p =>p.Status == true);
 
             int totalcount = query.Count();
             
@@ -72,9 +72,9 @@ namespace BarberShop.Application.Services
 
         }
 
-        public async Task<HaircutDto> GetHaircut(Guid id, string userId)
+        public async Task<HaircutDto> GetHaircut(Guid id)
         {
-            var query =  _haircutRepository.Search(p =>p.Id == id && p.UserId == userId && p.Status == true).Result.FirstOrDefault();
+            var query =  _haircutRepository.Search(p =>p.Id == id && p.Status == true).Result.FirstOrDefault();
 
             if (query == null)
             {
@@ -87,7 +87,7 @@ namespace BarberShop.Application.Services
 
         public async Task<bool> UpdateHaircut(HaircutDTQ haircutDtq)
         {
-            var haircut =  _haircutRepository.Search(h => h.Id == haircutDtq.Id && h.UserId == haircutDtq.UserId).Result.FirstOrDefault();
+            var haircut =  _haircutRepository.Search(h => h.Id == haircutDtq.Id).Result.FirstOrDefault();
 
             if(haircut == null) return false; 
             
@@ -98,9 +98,9 @@ namespace BarberShop.Application.Services
             return await _haircutRepository.Update(haircut);
         }
 
-        public async Task<bool> DesactiveHaircut(Guid id, string userId)
+        public async Task<bool> DesactiveHaircut(Guid id)
         {
-            var haircut = _haircutRepository.Search(h => h.Id == id && h.UserId == userId).Result.FirstOrDefault();
+            var haircut = _haircutRepository.Search(h => h.Id == id).Result.FirstOrDefault();
 
             if (haircut == null) return false;
 

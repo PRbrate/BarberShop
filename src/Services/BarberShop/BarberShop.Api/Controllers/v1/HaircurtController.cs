@@ -37,12 +37,9 @@ namespace BarberShop.Api.Controllers.v1
         [HttpGet("AllHaircut")]
         public async Task<IActionResult> GetAllHaircuts(int pageIndex = 1, int pageSize = 5)
         {
-            var userId = User.GetUserId();
 
-            if (string.IsNullOrEmpty(userId))
-                NotifyError("User ID not found.");
 
-            var sucess = await _haircutService.GetAllHaircutAsync(userId, pageIndex, pageSize);
+            var sucess = await _haircutService.GetAllHaircutAsync(pageIndex, pageSize);
 
             return CustomResponse(sucess);
         }
@@ -50,13 +47,8 @@ namespace BarberShop.Api.Controllers.v1
         [HttpGet("{id}")]
         public async Task<IActionResult> GetHaircut(Guid id)
         {
-            var userId = User.GetUserId();
 
-
-            if (string.IsNullOrEmpty(userId))
-                NotifyError("User ID not found.");
-
-            var sucess = await _haircutService.GetHaircut(id, userId);
+            var sucess = await _haircutService.GetHaircut(id);
 
             if (sucess == null) NotifyError("Erro ao buscar Corte");
 
@@ -67,12 +59,9 @@ namespace BarberShop.Api.Controllers.v1
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteHaircut(Guid id)
         {
-            var userId = User.GetUserId();
 
-            if (string.IsNullOrEmpty(userId))
-                NotifyError("User ID not found.");
 
-            var sucess = await _haircutService.DeleteHaircut(id, userId);
+            var sucess = await _haircutService.DeleteHaircut(id);
 
             if (!sucess) NotifyError("Erro ao deletar Corte");
 
@@ -82,12 +71,7 @@ namespace BarberShop.Api.Controllers.v1
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateHaircut(Guid id,HaircutDTQ haircutDtq)
         {
-            var userId = User.GetUserId();
 
-            if (string.IsNullOrEmpty(userId))
-                NotifyError("User ID not found.");
-
-            haircutDtq.UserId = userId;
             haircutDtq.Id = id;
 
             var sucess = await _haircutService.UpdateHaircut(haircutDtq);
@@ -100,12 +84,8 @@ namespace BarberShop.Api.Controllers.v1
         [HttpPatch("{id}")]
         public async Task<IActionResult> DesactiveHaircut(Guid id)
         {
-            var userId = User.GetUserId();
 
-            if (string.IsNullOrEmpty(userId))
-                NotifyError("User ID not found.");
-
-            var sucess = await _haircutService.DesactiveHaircut(id, userId);
+            var sucess = await _haircutService.DesactiveHaircut(id);
 
             if (!sucess) NotifyError("Erro ao desativar Corte");
 
