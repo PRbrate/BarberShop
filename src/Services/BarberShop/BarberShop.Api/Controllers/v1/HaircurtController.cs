@@ -2,7 +2,7 @@
 
 namespace BarberShop.Api.Controllers.v1
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
     [Authorize]
     public class HaircurtController : ApiControllerBase
