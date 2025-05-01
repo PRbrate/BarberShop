@@ -52,5 +52,21 @@ namespace BarberShop.Api.Controllers
             return CustomResponse(userDTO);
         }
 
+        [HttpGet("checkSubscription")]
+        public async Task<IActionResult> CheckSupscription()
+        {
+
+            var userId = User.GetUserId();
+
+            if (string.IsNullOrEmpty(userId))
+                NotifyError("User ID not found.");
+
+            var subscrioption = await _userService.CheckSubscription(userId);
+
+            if (subscrioption == null) NotifyError("Não existe inscrição para o usuário");
+
+            return CustomResponse(subscrioption);
+        }
+
     }
 }

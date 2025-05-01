@@ -1,5 +1,8 @@
 ﻿using BarberShop.Application.Services;
+using BarberShop.Application.Services.Interfaces;
 using BarberShop.Data;
+using BarberShop.Data.Repositories;
+using BarberShop.Data.Repositories.Interfaces;
 
 namespace BarberShop.Api.ApiConfig
 {
@@ -15,6 +18,7 @@ namespace BarberShop.Api.ApiConfig
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IScheduleService, ScheduleService>();
             services.AddScoped<IJwtService, JwtService>();
+            services.AddScoped<ISubscriptionService, SubscriptionService>();
             #endregion
 
             #region repositories
@@ -22,6 +26,7 @@ namespace BarberShop.Api.ApiConfig
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IScheduleRepository, ScheduleRepository>();
             services.AddScoped<IHaircutRepository, HaircutRepository>();
+            services.AddScoped<ISubscriptionRepository, SubscriptionRepository>();
 
             #endregion
         }

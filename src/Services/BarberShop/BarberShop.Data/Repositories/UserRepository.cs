@@ -31,6 +31,8 @@ namespace BarberShop.Data
 
             return user;
         }
+
+
         public async Task<bool> Update(User user)
         {
             _context.Update(user);
