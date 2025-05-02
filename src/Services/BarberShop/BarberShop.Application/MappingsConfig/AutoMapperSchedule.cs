@@ -13,13 +13,29 @@ namespace BarberShop.Application
         //};
 
 
-        //public static ServiceDTO Map(this Service Service) => new
-        //    (Service.Id,  Service.Status, Service.PriceId, Service.UserId);
+        public static ScheduleDTO Map(this Service service)
+        {
+            var userId = Guid.TryParse(service.User?.Id, out var parsedUserId) ? parsedUserId : Guid.Empty;
+            var userName = service.User?.Name ?? string.Empty;
+
+            var haircutId = service.Haircut?.Id ?? Guid.Empty;
+            var haircutName = service.Haircut?.Name ?? string.Empty;
+
+            return new ScheduleDTO(
+                service.Id,
+                service.Customer,
+                service.HaircutId,
+                service.User?.Id ?? string.Empty,
+                new EntityDTO(userId, userName),
+                new EntityDTO(haircutId, haircutName)
+            );
+        }
+
 
         public static Service Map(this ScheduleDTQ scheduleDTQ) => new Service
-            (scheduleDTQ.Customer, scheduleDTQ.HaircutId, scheduleDTQ.UserId );
+            (scheduleDTQ.Customer, scheduleDTQ.HaircutId, scheduleDTQ.UserId);
 
-        //public static List<ServiceDTO> Map(this ICollection<Service> Services) => Services.Select(Service => Service.Map()
-        //).ToList();
+        public static List<ScheduleDTO> Map(this ICollection<Service> Services) => Services.Select(Service => Service.Map()
+        ).ToList();
     }
 }

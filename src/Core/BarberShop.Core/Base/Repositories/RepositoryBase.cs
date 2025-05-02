@@ -12,6 +12,7 @@ namespace BarberShop.Core
             _context = context;
             DbSet = context.Set<TEntity>();
         }
+        public virtual async Task<TEntity> GetId(Guid id) => await DbSet.FindAsync(id);
         public async Task<IEnumerable<TEntity>> Search(Expression<Func<TEntity, bool>> predicate) => await DbSet.AsNoTrackingWithIdentityResolution().Where(predicate).ToListAsync();
         public virtual async Task<bool> Create(TEntity entity)
         {

@@ -1,5 +1,6 @@
 ﻿
 using BarberShop.Domain;
+using System.Xml.Linq;
 
 namespace BarberShop.Application
 {
@@ -21,6 +22,9 @@ namespace BarberShop.Application
             Address = userDto.Address,
             PasswordHash = userDto.Password
         };
+        public static EntityDTO Map(Guid id, string name) => new EntityDTO
+        (id, name);
+
         public static UserDTO Map(this User user) => new
             (user.Id, user.Name, user.Email, user.Address, user.Subscriptions.Map());
     }
