@@ -30,7 +30,7 @@ namespace BarberShop.Api.Controllers.v1
 
             if (!sucess) NotifyError("Erro ao Cadastrar Corte");
 
-            return CustomResponse(haircutDtq);
+            return CustomResponse();
 
         }
 
@@ -81,7 +81,7 @@ namespace BarberShop.Api.Controllers.v1
             return CustomResponse(sucess);
         }
 
-        [HttpPatch("{id}")]
+        [HttpPost("Status/{id}")]
         public async Task<IActionResult> DesactiveHaircut(Guid id)
         {
 

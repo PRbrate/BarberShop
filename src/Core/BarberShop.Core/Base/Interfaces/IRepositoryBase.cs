@@ -7,7 +7,9 @@ namespace BarberShop.Core
         Task<IEnumerable<TEntity>> Search(Expression<Func<TEntity, bool>> predicate);
         Task<bool> Create(TEntity objeto);
         Task<bool> Update(TEntity objeto);
-        Task Delete(Guid id);
+        Task<bool> Delete(Guid id);
+
+        Task<TEntity> GetById(Guid id);
         Task<int> SaveChanges();
 
     }
