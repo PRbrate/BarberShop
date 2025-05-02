@@ -5,6 +5,6 @@ namespace BarberShop.Data
 {
     public interface IScheduleRepository : IRepositoryBase<Service>
     {
-        void Dispose();
+        Task<List<Service>> GetScheduleByUserId(string userId);
     }
 }

@@ -52,7 +52,7 @@ namespace BarberShop.Api.Controllers
             return CustomResponse(userDTO);
         }
 
-        [HttpGet("checkSubscription")]
+        [HttpGet("check-subscription")]
         public async Task<IActionResult> CheckSupscription()
         {
 

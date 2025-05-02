@@ -16,7 +16,13 @@ namespace BarberShop.Domain
         public string Customer { get; private set; }
         public Guid HaircutId { get; private set; }
         public string UserId { get; private set; }
+        public bool IsFinish { get; private set; }
         public User User { get; set; }
         public Haircut Haircut { get; set; }
+
+        public void Finish()
+        {
+            IsFinish = true;
+        }
     }
 }
