@@ -1,8 +1,4 @@
-﻿using BarberShop.Application.DTQ;
-using BarberShop.Application.Services.Interfaces;
-using BarberShop.Data;
-using BarberShop.Data.Repositories.Interfaces;
-using BarberShop.Domain;
+﻿using BarberShop.Data;
 
 namespace BarberShop.Application.Services
 {

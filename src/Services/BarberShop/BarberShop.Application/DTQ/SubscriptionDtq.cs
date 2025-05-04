@@ -1,4 +1,4 @@
-﻿namespace BarberShop.Application.DTQ
+﻿namespace BarberShop.Application
 {
     public class SubscriptionDtq
     {

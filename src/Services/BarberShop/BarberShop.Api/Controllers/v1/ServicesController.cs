@@ -1,8 +1,9 @@
 ﻿namespace BarberShop.Api.Controllers
 {
     [Authorize]
-    [Route("api/v1/[controller]")]
     [ApiController]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     public class ServicesController : ApiControllerBase
     {
         private readonly IScheduleService _scheduleService;

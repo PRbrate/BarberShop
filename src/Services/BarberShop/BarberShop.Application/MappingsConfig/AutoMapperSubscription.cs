@@ -1,5 +1,4 @@
-﻿using BarberShop.Application.DTQ;
-using BarberShop.Domain;
+﻿using BarberShop.Domain;
 
 namespace BarberShop.Application
 {

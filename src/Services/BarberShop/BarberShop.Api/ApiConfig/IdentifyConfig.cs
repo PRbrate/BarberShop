@@ -35,12 +35,6 @@ namespace BarberShop.Api.ApiConfig
                 };
             });
 
-            //builder.Services.AddAuthorization(x =>
-            //{
-            //    x.AddPolicy("authorize", policy =>
-            //    policy.RequireRole("admin"));
-            //});
-
             return builder;
 
         }

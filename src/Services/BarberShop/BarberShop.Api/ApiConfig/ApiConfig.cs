@@ -22,10 +22,13 @@ namespace BarberShop.Api.ApiConfig
                     options.JsonSerializerOptions.Converters.Add(new DateOnlyJsonConverter());
                 });
 
+
             builder.Services.RegisterServices();
 
             return builder;
         }
+
+       
 
     }
 }

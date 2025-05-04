@@ -1,10 +1,9 @@
-﻿using BarberShop.Core;
-
-namespace BarberShop.Api.Controllers
+﻿namespace BarberShop.Api.Controllers
 {
     [Authorize]
-    [Route("api/v1/[controller]")]
     [ApiController]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     public class UsersController : ApiControllerBase
     {
         private readonly IUserService _userService;

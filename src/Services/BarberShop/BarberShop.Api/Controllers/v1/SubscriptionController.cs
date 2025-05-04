@@ -1,12 +1,8 @@
-﻿using BarberShop.Application.DTQ;
-using BarberShop.Application.Services.Interfaces;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-
-namespace BarberShop.Api.Controllers.v1
+﻿namespace BarberShop.Api.Controllers.v1
 {
-    [Route("api/v1/[controller]")]
     [ApiController]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     public class SubscriptionController : ApiControllerBase
     {
         private readonly IUserService _userService;

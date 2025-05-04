@@ -1,9 +1,7 @@
 ﻿using BarberShop.Core;
-using BarberShop.Data.Repositories.Interfaces;
 using BarberShop.Domain;
-using Microsoft.EntityFrameworkCore;
 
-namespace BarberShop.Data.Repositories
+namespace BarberShop.Data
 {
     public class SubscriptionRepository : RepositoryBase<Subscription>, ISubscriptionRepository
     {

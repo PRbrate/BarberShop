@@ -1,10 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-
-namespace BarberShop.Api.Controllers.v1
+namespace BarberShop.Api.Controllers.V1
 {
-    [Route("api/v1/[controller]")]
-    [ApiController]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     public class AuthController : ApiControllerBase
     {
         private readonly SignInManager<User> _signInManager;

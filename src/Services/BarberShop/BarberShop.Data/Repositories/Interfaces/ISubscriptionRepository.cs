@@ -1,7 +1,7 @@
 ﻿using BarberShop.Core;
 using BarberShop.Domain;
 
-namespace BarberShop.Data.Repositories.Interfaces
+namespace BarberShop.Data
 {
     public interface ISubscriptionRepository : IRepositoryBase<Subscription>
     {

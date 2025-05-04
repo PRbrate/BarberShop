@@ -1,6 +1,4 @@
-﻿using BarberShop.Application.DTQ;
-
-namespace BarberShop.Application.Services.Interfaces
+﻿namespace BarberShop.Application
 {
     public interface ISubscriptionService
     {

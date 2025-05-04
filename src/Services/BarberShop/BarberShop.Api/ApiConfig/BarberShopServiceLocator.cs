@@ -1,8 +1,5 @@
 ﻿using BarberShop.Application.Services;
-using BarberShop.Application.Services.Interfaces;
 using BarberShop.Data;
-using BarberShop.Data.Repositories;
-using BarberShop.Data.Repositories.Interfaces;
 
 namespace BarberShop.Api.ApiConfig
 {
