@@ -25,5 +25,8 @@ namespace BarberShop.Application.MappingsConfig
         public static HaircutDto Map(this Haircut haircut) => new
              (haircut.Id, haircut.Name, haircut.Price, haircut.UserId, haircut.Status);
 
+
+        public static List<HaircutDto> Map(this ICollection<Haircut> subscriptions) => subscriptions.Select(subscription => subscription.Map()
+        ).ToList();
     }
 }

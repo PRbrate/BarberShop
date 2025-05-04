@@ -29,7 +29,7 @@
 
             if (!sucess) NotifyError("Erro ao Cadastrar Corte");
 
-            return CustomResponse(haircutDtq);
+            return CustomResponse();
 
         }
 
@@ -80,7 +80,7 @@
             return CustomResponse(sucess);
         }
 
-        [HttpPatch("{id}")]
+        [HttpPost("Status/{id}")]
         public async Task<IActionResult> DesactiveHaircut(Guid id)
         {
 

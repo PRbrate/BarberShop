@@ -19,6 +19,11 @@ namespace BarberShop.Core
             DbSet.Add(entity);
             return await SaveChanges() > 0;
         }
+
+        public async Task<TEntity> GetById(Guid id)
+        {
+            return await DbSet.FindAsync(id);
+        }
         public virtual async Task<bool> Update(TEntity entity)
         {
             _context.Entry(entity).State = EntityState.Modified;
@@ -31,10 +36,10 @@ namespace BarberShop.Core
 
             return await SaveChanges() > 0;
         }
-        public virtual async Task Delete(Guid id)
+        public virtual async Task<bool> Delete(Guid id)
         {
             DbSet.Remove(new TEntity { Id = id });
-            await SaveChanges();
+            return await SaveChanges() > 0;
         }
 
         public async Task<int> SaveChanges() => await _context.SaveChangesAsync();
