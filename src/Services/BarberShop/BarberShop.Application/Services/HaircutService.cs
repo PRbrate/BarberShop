@@ -2,7 +2,6 @@
 using BarberShop.Core;
 using BarberShop.Core.Notifications;
 using BarberShop.Data;
-using BarberShop.Domain;
 using BarberShop.Domain.Validations;
 
 namespace BarberShop.Application.Services
@@ -22,9 +21,9 @@ namespace BarberShop.Application.Services
         {
             int count = GetCount(haircutDto.UserId);
             
-            var subscriptions = await _subscriptionRepository.GetSubscriptionsFromUser(haircutDto.UserId);
+            var subscriptions =  _subscriptionRepository.HasSubscriptionsFromUser(haircutDto.UserId);
 
-            if (count >= 3 && (!subscriptions.Any() || subscriptions.Any(c=> !c.Status )) )
+            if (count >= 3 && !subscriptions)
             {
                 Notifier(BarberShopErrorMessage.ERROR_HAIRCUT_LIMIT);
                 return false;

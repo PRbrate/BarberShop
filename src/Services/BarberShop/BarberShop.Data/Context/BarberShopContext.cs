@@ -38,9 +38,10 @@ namespace BarberShop.Data
                 .HasKey(login => login.UserId);
 
             modelBuilder.Entity<User>()
-                .HasMany(u => u.Subscriptions)
+                .HasOne(u => u.Subscriptions)
                 .WithOne(s => s.User)
-                .HasForeignKey(s => s.UserId);
+                .HasForeignKey<Subscription>(s => s.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Haircut>()
                 .HasOne(u => u.User)
@@ -63,11 +64,11 @@ namespace BarberShop.Data
             modelBuilder.Entity<Service>()
                 .HasQueryFilter(s => !s.IsFinish);
 
-            modelBuilder.Entity<Subscription>()
-                .HasOne(u => u.User)
-                .WithMany(s => s.Subscriptions)
-                .HasForeignKey(s => s.UserId)
-                .OnDelete(DeleteBehavior.Restrict);
+            //modelBuilder.Entity<Subscription>()
+            //    .HasOne(u => u.User)
+            //    .WithMany(s => s.Subscriptions)
+            //    .HasForeignKey(s => s.UserId)
+            //    .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Service>()
                 .Property(p => p.CreatedAt)

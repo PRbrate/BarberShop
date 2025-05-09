@@ -6,7 +6,6 @@ namespace BarberShop.Domain
     {
         public User()
         {
-            Subscriptions = [];
             Haircuts = [];
             Services = [];
         }
@@ -14,7 +13,7 @@ namespace BarberShop.Domain
         public string Address { get; set; }
 
 
-        public ICollection<Subscription> Subscriptions { get; set; }
+        public Subscription Subscriptions { get; set; }
         public ICollection<Haircut> Haircuts { get; set; }
         public ICollection<Service> Services { get; set; }
 

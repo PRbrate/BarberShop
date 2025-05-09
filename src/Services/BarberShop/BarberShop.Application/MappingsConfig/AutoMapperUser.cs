@@ -1,6 +1,5 @@
 ﻿
 using BarberShop.Domain;
-using System.Xml.Linq;
 
 namespace BarberShop.Application
 {

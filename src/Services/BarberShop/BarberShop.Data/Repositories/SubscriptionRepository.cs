@@ -22,7 +22,7 @@ namespace BarberShop.Data
         public bool HasSubscriptionsFromUser(string userId)
         {
             var subscriptions =  _context.Subscription
-                        .Any(Subscription => Subscription.UserId == userId && Subscription.Status != true);
+                        .Any(Subscription => Subscription.UserId == userId && Subscription.Status);
 
             return subscriptions;
         }
