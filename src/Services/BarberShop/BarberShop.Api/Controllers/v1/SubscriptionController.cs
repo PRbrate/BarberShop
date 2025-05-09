@@ -1,35 +1,40 @@
 ﻿namespace BarberShop.Api.Controllers.v1
 {
+    [Authorize]
     [ApiController]
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
-    public class SubscriptionController : ApiControllerBase
+    public class SubscriptionsController : ApiControllerBase
     {
         private readonly IUserService _userService;
         private readonly ISubscriptionService _subscriptionService;
-        public SubscriptionController(INotifier notifier, IUser user, IUserService userService, ISubscriptionService subscriptionService) : base(notifier, user)
+        public SubscriptionsController(INotifier notifier, IUser user, IUserService userService, ISubscriptionService subscriptionService) : base(notifier, user)
         {
             _userService = userService;
             _subscriptionService = subscriptionService;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> CreateSubscription(SubscriptionDtq subscriptionDtq)
+        [HttpGet("check-subscription")]
+        public async Task<IActionResult> Check()
         {
-            var userId = User.GetUserId();
 
+            var subscrioption = await _subscriptionService.CheckSubscription(UserId);
 
-            if (string.IsNullOrEmpty(userId))
-                NotifyError("User ID not found.");
+            return CustomResponse(subscrioption);
+        }
 
-            subscriptionDtq.UserId = userId;
+        [HttpPost("create")]
+        public async Task<IActionResult> Create(SubscriptionDtq subscriptionDtq)
+        {
+            subscriptionDtq.UserId = UserId;
 
-            var sucess = await _subscriptionService.CreateSubscription(subscriptionDtq);
+            var sucess = await _subscriptionService.Create(subscriptionDtq);
 
             if (!sucess) NotifyError("Erro ao Cadastrar Corte");
 
             return CustomResponse(subscriptionDtq);
 
         }
+
     }
 }

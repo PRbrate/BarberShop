@@ -10,14 +10,26 @@ namespace BarberShop.Application.Services
     public class HaircutService : ServiceBase, IHaircutService
     {
         public IHaircutRepository _haircutRepository;
+        public ISubscriptionRepository _subscriptionRepository;
 
-        public HaircutService(IHaircutRepository haircutRepository, INotifier notifier) : base(notifier)
+        public HaircutService(IHaircutRepository haircutRepository, INotifier notifier, ISubscriptionRepository subscriptionRepository) : base(notifier)
         {
             _haircutRepository = haircutRepository;
+            _subscriptionRepository = subscriptionRepository;
         }
 
         public async Task<bool> CreateHaircut(HaircutDTQ haircutDto)
         {
+            int count = GetCount(haircutDto.UserId);
+            
+            var subscriptions = await _subscriptionRepository.GetSubscriptionsFromUser(haircutDto.UserId);
+
+            if (count >= 3 && (!subscriptions.Any() || subscriptions.Any(c=> !c.Status )) )
+            {
+                Notifier(BarberShopErrorMessage.ERROR_HAIRCUT_LIMIT);
+                return false;
+            }
+
             var haircut = AutoMapperHaircut.Map(haircutDto);
 
             if (!ExecuteVatidation(new HaircutValidation(), haircut)) return false;
@@ -46,26 +58,25 @@ namespace BarberShop.Application.Services
 
         }
 
-        public async Task<PaginationResult<HaircutDto>> GetAllHaircutAsync(int pageIndex, int pageSize)
+        public async Task<PaginationResult<HaircutDTO>> GetAllHaircutAsync(int pageIndex, int pageSize)
         {
             var query = await _haircutRepository.GetListHaicurt(pageIndex, pageSize);
 
-            if (query.Items.Count == 0) Notifier(BarberShopErrorMessage.ERROR_HAIRCUT_NOT_FOUND);
-
-            var result = new PaginationResult<HaircutDto>(AutoMapperHaircut.Map(query.Items), query.TotalCount, pageIndex, pageSize);
+            var result = new PaginationResult<HaircutDTO>(AutoMapperHaircut.Map(query.Items), query.TotalCount, pageIndex, pageSize);
 
             return result;
 
         }
 
-        public async Task<HaircutDto> GetHaircut(Guid id)
+        public async Task<HaircutDTO> GetHaircut(Guid id)
         {
-            var query = _haircutRepository.Search(p => p.Id == id && p.Status == true).Result.FirstOrDefault();
+            var haircut = await _haircutRepository.GetById(id);
 
-            if (query == null) Notifier(BarberShopErrorMessage.ERROR_HAIRCUT_NOT_FOUND);
+            if (haircut == null) Notifier(BarberShopErrorMessage.ERROR_HAIRCUT_NOT_FOUND);
 
-            return AutoMapperHaircut.Map(query);
+            return AutoMapperHaircut.Map(haircut);
         }
+        public int GetCount(string userId) => _haircutRepository.GetCount(userId);
 
         public async Task<bool> UpdateHaircut(HaircutDTQ haircutDtq)
         {

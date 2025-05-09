@@ -8,7 +8,5 @@ namespace BarberShop.Application
         Task<User> GetFindByEmailAsync(string email);
         Task<bool> Update(UserDTQ userDTQ);
 
-        Task<SubscriptionDTO> CheckSubscription(string id);  
-
     }
 }

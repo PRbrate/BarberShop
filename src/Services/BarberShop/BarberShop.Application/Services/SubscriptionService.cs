@@ -13,7 +13,16 @@ namespace BarberShop.Application.Services
             _userRepository = user;
         }
 
-        public async Task<bool> CreateSubscription(SubscriptionDtq subscriptionDtq)
+        public async Task<List<SubscriptionDTO>> CheckSubscription(string userId)
+        {
+            var subscriptions = await _subscriptionRepository.GetSubscriptionsFromUser(userId);
+
+            var map = AutoMapperSubscription.Map(subscriptions);
+
+            return map;
+        }
+
+        public async Task<bool> Create(SubscriptionDtq subscriptionDtq)
         {
             var subscription = AutoMapperSubscription.Map(subscriptionDtq);
 

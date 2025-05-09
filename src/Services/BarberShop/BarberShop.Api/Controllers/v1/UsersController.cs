@@ -12,19 +12,11 @@
             _userService = userService;
         }
 
-
         [HttpGet("user-detail")]
         public async Task<IActionResult> GetUserDetail()
         {
-            var userId = User.GetUserId();
 
-            if (string.IsNullOrEmpty(userId))
-                NotifyError("User ID not found.");
-
-            var userDTO = await _userService.GetUserById(userId);
-
-            if (userDTO == null)
-                NotifyError("User not found.");
+            var userDTO = await _userService.GetUserById(UserId);
 
             return CustomResponse(userDTO);
 
@@ -49,22 +41,6 @@
             var userDTO = await _userService.GetUserById(id);
 
             return CustomResponse(userDTO);
-        }
-
-        [HttpGet("check-subscription")]
-        public async Task<IActionResult> CheckSupscription()
-        {
-
-            var userId = User.GetUserId();
-
-            if (string.IsNullOrEmpty(userId))
-                NotifyError("User ID not found.");
-
-            var subscrioption = await _userService.CheckSubscription(userId);
-
-            if (subscrioption == null) NotifyError("Não existe inscrição para o usuário");
-
-            return CustomResponse(subscrioption);
         }
 
     }

@@ -4,11 +4,11 @@
     [Authorize]
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
-    public class HaircurtController : ApiControllerBase
+    public class HaircurtsController : ApiControllerBase
     {
         private readonly IUserService _userService;
         private readonly IHaircutService _haircutService;
-        public HaircurtController(INotifier notifier, IUser user, IUserService userService, IHaircutService haircutService) : base(notifier, user)
+        public HaircurtsController(INotifier notifier, IUser user, IUserService userService, IHaircutService haircutService) : base(notifier, user)
         {
             _userService = userService;
             _haircutService = haircutService;
@@ -17,26 +17,18 @@
         [HttpPost]
         public async Task<IActionResult> CreateHaircut(HaircutDTQ haircutDtq)
         {
-            var userId = User.GetUserId();
-
-
-            if (string.IsNullOrEmpty(userId))
-                NotifyError("User ID not found.");
-
-            haircutDtq.UserId = userId;
+            haircutDtq.UserId = UserId;
 
             var sucess = await _haircutService.CreateHaircut(haircutDtq);
 
-            if (!sucess) NotifyError("Erro ao Cadastrar Corte");
 
-            return CustomResponse();
+            return CustomResponse(haircutDtq);
 
         }
 
         [HttpGet("AllHaircut")]
         public async Task<IActionResult> GetAllHaircuts(int pageIndex = 1, int pageSize = 5)
         {
-
 
             var sucess = await _haircutService.GetAllHaircutAsync(pageIndex, pageSize);
 
@@ -49,16 +41,22 @@
 
             var sucess = await _haircutService.GetHaircut(id);
 
-            if (sucess == null) NotifyError("Erro ao buscar Corte");
-
             return CustomResponse(sucess);
+
+        }
+
+        [HttpGet("count")]
+        public IActionResult GetCount()
+        {
+            var count =  _haircutService.GetCount(UserId);
+
+            return CustomResponse(count);
 
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteHaircut(Guid id)
         {
-
 
             var sucess = await _haircutService.DeleteHaircut(id);
 

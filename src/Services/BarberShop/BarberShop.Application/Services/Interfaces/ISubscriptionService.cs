@@ -2,6 +2,7 @@
 {
     public interface ISubscriptionService
     {
-        Task<bool> CreateSubscription(SubscriptionDtq subscriptionDtq);
+        Task<List<SubscriptionDTO>> CheckSubscription(string userId);
+        Task<bool> Create(SubscriptionDtq subscriptionDtq);
     }
 }

@@ -1,7 +1,6 @@
 ﻿namespace BarberShop.Api.Controllers
 {
     [Authorize]
-    [ApiController]
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
     public class ServicesController : ApiControllerBase
@@ -15,12 +14,8 @@
         [HttpGet("schedules")]
         public async Task<IActionResult> GetAll()
         {
-            var userId = User.GetUserId();
 
-            if (string.IsNullOrEmpty(userId))
-                NotifyError("User ID not found.");
-
-            var scheduleDtos = await _scheduleService.GetScheduleByUserId(userId);
+            var scheduleDtos = await _scheduleService.GetScheduleByUserId(UserId);
 
             return CustomResponse(scheduleDtos);
 

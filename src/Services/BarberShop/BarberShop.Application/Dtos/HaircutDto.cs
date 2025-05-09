@@ -1,4 +1,4 @@
 ﻿namespace BarberShop.Application
 {
-    public record HaircutDto(Guid Id, string Name, double Price, string UserId, bool Status);
+    public record HaircutDTO(Guid Id, string Name, double Price, string UserId, bool Status);
 }

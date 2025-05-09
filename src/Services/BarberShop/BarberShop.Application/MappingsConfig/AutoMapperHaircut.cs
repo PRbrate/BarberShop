@@ -4,7 +4,7 @@ namespace BarberShop.Application.MappingsConfig
 {
     public static class AutoMapperHaircut
     {
-        public static Haircut Map(this HaircutDto haircutDto) => new Haircut
+        public static Haircut Map(this HaircutDTO haircutDto) => new Haircut
         {
             Id = haircutDto.Id,
             Name = haircutDto.Name,
@@ -22,11 +22,11 @@ namespace BarberShop.Application.MappingsConfig
             Status = true
         };
 
-        public static HaircutDto Map(this Haircut haircut) => new
+        public static HaircutDTO Map(this Haircut haircut) => new
              (haircut.Id, haircut.Name, haircut.Price, haircut.UserId, haircut.Status);
 
 
-        public static List<HaircutDto> Map(this ICollection<Haircut> subscriptions) => subscriptions.Select(subscription => subscription.Map()
+        public static List<HaircutDTO> Map(this ICollection<Haircut> subscriptions) => subscriptions.Select(subscription => subscription.Map()
         ).ToList();
     }
 }

@@ -1,5 +1,4 @@
-﻿using BarberShop.Core;
-using BarberShop.Data;
+﻿using BarberShop.Data;
 using BarberShop.Domain;
 
 namespace BarberShop.Application
@@ -13,16 +12,6 @@ namespace BarberShop.Application
             _userRepository = repository;
         }
 
-        public async Task<SubscriptionDTO> CheckSubscription(string id)
-        {
-            var subscriptions = _userRepository.GetUserFromId(id).Result.Subscriptions.FirstOrDefault();
-
-            if (subscriptions == null) return null;
-
-            var map = AutoMapperSubscription.Map(subscriptions);
-
-            return map;
-        }
 
         public async Task<User> GetFindByEmailAsync(string email)
         {

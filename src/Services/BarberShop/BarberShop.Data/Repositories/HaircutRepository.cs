@@ -28,5 +28,10 @@ namespace BarberShop.Data
             _context.Entry(haircut).Property(h => h.UpdatedAt).IsModified = true;
             return await SaveChanges() > 0;
         }
+
+        public int GetCount(string userId)
+        {
+            return _context.Haircut.Where(c=> c.UserId == userId).Count();
+        }
     }
 }
