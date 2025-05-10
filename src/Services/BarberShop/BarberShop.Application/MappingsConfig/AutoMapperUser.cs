@@ -25,6 +25,6 @@ namespace BarberShop.Application
         (id, name);
 
         public static UserDTO Map(this User user) => new
-            (user.Id, user.Name, user.Email, user.Address, user.Subscriptions.Map());
+            (user.Id, user.Name, user.Email, user.Address, user.Subscriptions?.Map());
     }
 }
