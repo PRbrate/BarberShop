@@ -5,7 +5,7 @@ namespace BarberShop.Data
 {
     public interface IHaircutRepository : IRepositoryBase<Haircut>
     {
-        Task<PaginationResult<Haircut>> GetListHaicurt(int pageIndex, int pageSize);
+        Task<List<Haircut>> GetListHaicurt(string userId, bool status);
         int GetCount(string userId);
         Task<bool> UpdateStatus(Haircut haircut);
     }

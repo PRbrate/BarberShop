@@ -57,13 +57,11 @@ namespace BarberShop.Application.Services
 
         }
 
-        public async Task<PaginationResult<HaircutDTO>> GetAllHaircutAsync(int pageIndex, int pageSize)
+        public async Task<List<HaircutDTO>> GetAllHaircutAsync(string userId, bool status)
         {
-            var query = await _haircutRepository.GetListHaicurt(pageIndex, pageSize);
+            var list = await _haircutRepository.GetListHaicurt(userId, status);
 
-            var result = new PaginationResult<HaircutDTO>(AutoMapperHaircut.Map(query.Items), query.TotalCount, pageIndex, pageSize);
-
-            return result;
+            return list.Map(); ;
 
         }
 

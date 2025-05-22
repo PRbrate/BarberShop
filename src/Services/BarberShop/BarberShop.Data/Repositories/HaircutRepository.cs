@@ -12,13 +12,13 @@ namespace BarberShop.Data
             _context = context;
         }
 
-        public async Task<PaginationResult<Haircut>> GetListHaicurt(int pageIndex, int pageSize)
+        public async Task<List<Haircut>> GetListHaicurt(string userId, bool status)
         {
             var totalcount = _context.Haircut.Count();
 
-            var items = await _context.Haircut.OrderBy(p => p.Price).Skip((pageIndex - 1) * pageSize).Take(totalcount).ToListAsync();
+            var items = await _context.Haircut.Where(c=> c.UserId == userId && status).OrderBy(p => p.Price).ToListAsync();
 
-            return new PaginationResult<Haircut>(items, totalcount, pageIndex, pageSize);
+            return items;
         }
         public async Task<bool> UpdateStatus(Haircut haircut)
         {

@@ -27,10 +27,10 @@
         }
 
         [HttpGet("AllHaircut")]
-        public async Task<IActionResult> GetAllHaircuts(int pageIndex = 1, int pageSize = 5)
+        public async Task<IActionResult> GetAllHaircuts(bool status)
         {
-
-            var sucess = await _haircutService.GetAllHaircutAsync(pageIndex, pageSize);
+            var userId = UserId;
+            var sucess = await _haircutService.GetAllHaircutAsync(userId, status);
 
             return CustomResponse(sucess);
         }

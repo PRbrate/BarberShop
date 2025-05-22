@@ -6,7 +6,7 @@ namespace BarberShop.Application
     {
         Task<bool> CreateHaircut(HaircutDTQ haircutDto);
         Task<bool> DeleteHaircut(Guid haircutId);
-        Task<PaginationResult<HaircutDTO>> GetAllHaircutAsync(int pageIndex, int pageSize);
+        Task<List<HaircutDTO>> GetAllHaircutAsync(string userId, bool status);
         Task<HaircutDTO> GetHaircut(Guid id);
         Task<bool> UpdateHaircut(HaircutDTQ haircutDtq);
         Task<bool> DesactiveHaircut(Guid id);
