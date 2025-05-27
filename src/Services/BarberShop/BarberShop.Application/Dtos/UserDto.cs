@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BarberShop.Domain;
 
-namespace BarberShop.Application.Dtos
+namespace BarberShop.Application
 {
-    public record UserDto(string id, string Name, string Email, string Address, string Password);
+    public record UserDTO(string id, string Name, string Email, string Address, SubscriptionDTO Subscriptions);
 }

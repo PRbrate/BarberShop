@@ -1,20 +1,17 @@
-﻿using BarberShop.Core.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq.Expressions;
 
-namespace BarberShop.Core.Base.Interfaces
+namespace BarberShop.Core
 {
-    public interface IRepositoryBase<T> where T : Entity
+    public interface IRepositoryBase<TEntity> : IDisposable where TEntity : Entity
     {
-        Task<T> GetAsync(int id);
-        IQueryable<T> GetAllAsync();
-        Task<T> Create(T entity);
-        Task<T> Update(T entity);
-        Task<T> Delete(T entity);
-        public bool Detached(T entity);
+        Task<TEntity> GetId(Guid id);
+        Task<IEnumerable<TEntity>> Search(Expression<Func<TEntity, bool>> predicate);
+        Task<bool> Create(TEntity objeto);
+        Task<bool> Update(TEntity objeto);
+        Task<bool> Delete(Guid id);
+
+        Task<TEntity> GetById(Guid id);
+        Task<int> SaveChanges();
 
     }
 }

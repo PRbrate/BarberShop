@@ -1,35 +1,22 @@
-﻿using BarberShop.Application.Dtos;
-using BarberShop.Application.MappingsConfig;
-using BarberShop.Application.Services.OtherServices;
-using BarberShop.Core.Base;
-using BarberShop.Core.Base.Interfaces;
-using BarberShop.Data.Repositories.Interfaces;
-using BarberShop.Domain.Entities;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
+﻿using Microsoft.AspNetCore.Identity;
 
-namespace BarberShop.Api.Controllers.v1
+namespace BarberShop.Api.Controllers.V1
 {
-    [Route("api/v1/[controller]")]
-    [ApiController]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     public class AuthController : ApiControllerBase
     {
         private readonly SignInManager<User> _signInManager;
         public readonly UserManager<User> _userManager;
-        private readonly IUserRepository _userRepositoy;
-        private readonly JwtSettings _jwtSettings;
+        private readonly IJwtService _jwtService;
+        private readonly IUserService _userService;
 
-        public AuthController(SignInManager<User> signInManager, IUserRepository userRepositoy, IOptions<JwtSettings> jwtSettings, INotifier notifier, IUser user) : base(notifier, user)
+        public AuthController(SignInManager<User> signInManager, UserManager<User> userManager, INotifier notifier, IUser user, IUserService userService, IJwtService jwtService) : base(notifier, user)
         {
             _signInManager = signInManager;
-            _userRepositoy = userRepositoy;
-            _jwtSettings = jwtSettings.Value;
+            _userManager = userManager;
+            _userService = userService;
+            _jwtService = jwtService;
         }
 
         [AllowAnonymous]
@@ -38,7 +25,7 @@ namespace BarberShop.Api.Controllers.v1
         {
             if (!ModelState.IsValid) return ValidationProblem(ModelState);
 
-            var user = AutoMapperUser.Map(registerUser);
+            var user = registerUser.Map();
 
             var result = await _userManager.CreateAsync(user, registerUser.Password);
 
@@ -60,13 +47,18 @@ namespace BarberShop.Api.Controllers.v1
         {
             if (!ModelState.IsValid) return ValidationProblem(ModelState);
 
-            var result = await _signInManager.PasswordSignInAsync(loginUser.Email, loginUser.Password, false, true);
+            var user = await _userService.GetFindByEmailAsync(loginUser.Email);
+
+            if (user == null)
+            {
+                NotifyError("Login inválido.");
+                return CustomResponse();
+            }
+            var result = await _signInManager.PasswordSignInAsync(user, loginUser.Password, false, true);
 
             if (result.Succeeded)
-            {
+                return CustomResponse(await _jwtService.GenerateJwt(user));
 
-                return CustomResponse(await GenerateJwt(loginUser.Email));
-            }
             if (result.IsLockedOut)
             {
                 NotifyError("Usuário temporariamente bloqueado por tentativas inválidas");
@@ -76,56 +68,5 @@ namespace BarberShop.Api.Controllers.v1
             NotifyError("Usuário ou senha incorretos");
             return CustomResponse();
         }
-
-
-        private async Task<string> GenerateJwt(string email)
-        {
-            var user = await _userManager.FindByEmailAsync(email);
-
-
-            var claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.Name, user.Name),
-                new Claim(ClaimTypes.Email, user.Email),
-                new Claim("UserId", user.Id.ToString()),
-
-            };
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_jwtSettings.Secret);
-
-
-            //foreach (var role in roles)
-            //{
-            //    claims.Add(new Claim(ClaimTypes.Role, role));
-            //}
-            //var tokenHandler = new JwtSecurityTokenHandler();
-            //var key = Encoding.ASCII.GetBytes(_jwtSettings.Segredo);
-
-            var securityTokenDescriptor = new SecurityTokenDescriptor
-            {
-                //Subject = new ClaimsIdentity(new Claim[]
-                //{
-                //    //new Claim(ClaimTypes.Name, userLogin.Email),
-                //    //new Claim(ClaimTypes.Role, "Admin"),
-                //    //new Claim(ClaimTypes.Email, userLogin.Email),
-                //    //new Claim("Produto", "Cadastro"),
-                //    //new Claim("lastAccountId", user.ContaId.ToString()),
-                //    //new Claim("slug", user.ClienteSlug),
-                //    //new Claim("id", user.Id.ToString()),
-                //}),
-                Subject = new ClaimsIdentity(claims),
-                Issuer = _jwtSettings.Emissor,
-                Audience = _jwtSettings.Audience,
-                Expires = DateTime.UtcNow.AddHours(_jwtSettings.ExpireHours),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-            };
-
-            var token = tokenHandler.CreateToken(securityTokenDescriptor);
-
-            var encodedToken = tokenHandler.WriteToken(token);
-
-            return encodedToken;
-        }
-
     }
 }

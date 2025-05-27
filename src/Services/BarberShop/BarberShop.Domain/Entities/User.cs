@@ -1,16 +1,19 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace BarberShop.Domain.Entities
+namespace BarberShop.Domain
 {
     public class User : IdentityUser
     {
+        public User()
+        {
+            Haircuts = [];
+            Services = [];
+        }
         public string Name { get; set; }
-        public string Email { get; set; }
-        public string Adress { get; set; }
-        public string Password { get; set; }
-        public Guid SubscriptionId { get; set; }
-        public Subscription Subscription { get; set; }
+        public string Address { get; set; }
 
+
+        public Subscription Subscriptions { get; set; }
         public ICollection<Haircut> Haircuts { get; set; }
         public ICollection<Service> Services { get; set; }
 

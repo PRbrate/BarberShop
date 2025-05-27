@@ -1,19 +1,11 @@
-﻿using BarberShop.Core.Base;
-using BarberShop.Data.Context;
-using BarberShop.Data.Repositories.Interfaces;
-using BarberShop.Domain.Entities;
+﻿using BarberShop.Domain;
 using Microsoft.EntityFrameworkCore;
 
-namespace BarberShop.Data.Repositories
+namespace BarberShop.Data
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository(BarberShopContext context) : IUserRepository
     {
-        private readonly BarberShopContext _context;
-
-        public UserRepository(BarberShopContext context)
-        {
-            _context = context;
-        }
+        private readonly BarberShopContext _context = context;
 
         public void Dispose() => _context.Dispose();
 
@@ -22,6 +14,31 @@ namespace BarberShop.Data.Repositories
             var user = await _context.Users.ToListAsync();
 
             return user;
+        }
+        public async Task<User> GetFindByEmailAsync(string email)
+        {
+            var user = await _context.Users
+                        .Include(u => u.Subscriptions)
+                        .FirstOrDefaultAsync(u => u.Email == email);
+
+            return user;
+        }
+        public async Task<User> GetUserFromId(string id)
+        {
+            var user = await _context.Users
+                        .Include(u => u.Subscriptions)
+                        .FirstOrDefaultAsync(u => u.Id == id);
+
+            return user;
+        }
+
+
+        public async Task<bool> Update(User user)
+        {
+            _context.Update(user);
+
+            return await _context.SaveChangesAsync() > 0;
+
         }
 
     }

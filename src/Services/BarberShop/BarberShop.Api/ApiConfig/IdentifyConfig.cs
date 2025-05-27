@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using BarberShop.Domain;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -10,29 +11,28 @@ namespace BarberShop.Api.ApiConfig
         {
 
 
-            var key = Encoding.ASCII.GetBytes("BarberShopApi@Erik&Paulo,2025<Started=April.Paulo=>Developer&&Erik=>TechLead>");
-            builder.Services.AddAuthentication(x =>
-            {
-                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(x =>
-            {
-                x.RequireHttpsMetadata = false;
-                x.SaveToken = true;
-                x.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(key),
-                    ValidateIssuer = false,
-                    ValidateAudience = false,
-                    ValidateLifetime = true,
-                };
-            });
+            var JwtSettingsSection = builder.Configuration.GetSection(nameof(JwtSettings));
+            builder.Services.Configure<JwtSettings>(JwtSettingsSection);
 
-            builder.Services.AddAuthorization(x =>
+            var jwtSettings = JwtSettingsSection.Get<JwtSettings>();
+            var key = Encoding.ASCII.GetBytes(jwtSettings.Secret);
+
+            builder.Services.AddAuthentication(options =>
             {
-                x.AddPolicy("authorize", policy =>
-                policy.RequireRole("admin"));
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+                options.RequireHttpsMetadata = true;
+                options.SaveToken = true;
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidAudience = jwtSettings.Audience,
+                    ValidIssuer = jwtSettings.Issuer
+                };
             });
 
             return builder;

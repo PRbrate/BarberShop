@@ -1,4 +1,4 @@
-﻿using BarberShop.Data.Context;
+﻿using BarberShop.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace BarberShop.Api.ApiConfig
@@ -7,8 +7,8 @@ namespace BarberShop.Api.ApiConfig
     {
         public static WebApplicationBuilder AddDbContextConfig(this WebApplicationBuilder builder)
         {
-            //var connectionStr = Environment.GetEnvironmentVariable("CONNECTION_STRING");
-            builder.Services.AddDbContext<BarberShopContext>(opt => opt.UseNpgsql((builder.Configuration.GetConnectionString("Connection"))));
+            var connectionStr = Environment.GetEnvironmentVariable("CONNECTION");
+            builder.Services.AddDbContext<BarberShopContext>(opt => opt.UseNpgsql((connectionStr)));
             return builder;
         }
     }

@@ -1,4 +1,5 @@
-﻿using Microsoft.OpenApi.Models;
+﻿using Asp.Versioning.ApiExplorer;
+using Microsoft.OpenApi.Models;
 
 namespace BarberShop.Api.ApiConfig
 {
@@ -6,15 +7,15 @@ namespace BarberShop.Api.ApiConfig
     {
         public static WebApplicationBuilder AddSwaggerConfig(this WebApplicationBuilder builder)
         {
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
+
             builder.Services.AddSwaggerGen(c =>
             {
                 c.MapType<DateTime>(() => new OpenApiSchema
                 {
                     Type = "string",
-                    Format = "date", // Define apenas a data no Swagger
-                    Example = new Microsoft.OpenApi.Any.OpenApiString(DateTime.Now.ToString())
+                    Format = "date",
+                    Example = new Microsoft.OpenApi.Any.OpenApiString(DateTime.Now.ToString("yyyy-MM-dd"))
                 });
 
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
@@ -28,24 +29,44 @@ namespace BarberShop.Api.ApiConfig
                 });
 
                 c.AddSecurityRequirement(new OpenApiSecurityRequirement
-                                {
-                                    {
-                                        new OpenApiSecurityScheme
-                                        {
-                                            Reference = new OpenApiReference
-                                            {
-                                                Type = ReferenceType.SecurityScheme,
-                                                Id = "Bearer"
-                                            }
-                                        },
-                                        new string[] {}
-                                    }
-                                });
+        {
+            {
+                new OpenApiSecurityScheme
+                {
+                    Reference = new OpenApiReference
+                    {
+                        Type = ReferenceType.SecurityScheme,
+                        Id = "Bearer"
+                    }
+                },
+                Array.Empty<string>()
+            }
+        });
+
+                var provider = builder.Services.BuildServiceProvider()
+                    .GetRequiredService<IApiVersionDescriptionProvider>();
+
+                foreach (var description in provider.ApiVersionDescriptions)
+                {
+                    c.SwaggerDoc(description.GroupName, new OpenApiInfo
+                    {
+                        Title = $"BarberShop API - {description.GroupName.ToUpperInvariant()}",
+                        Version = description.ApiVersion.ToString(),
+                        Description = "API para gerenciamento de barbearias."
+                    });
+                }
+
+                c.DocInclusionPredicate((docName, apiDesc) =>
+                {
+                    if (!apiDesc.GroupName.Equals(docName, StringComparison.OrdinalIgnoreCase))
+                        return false;
+
+                    return true;
+                });
             });
 
-
             return builder;
-
         }
+
     }
 }

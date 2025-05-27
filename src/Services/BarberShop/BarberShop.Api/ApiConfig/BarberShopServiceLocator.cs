@@ -1,12 +1,5 @@
 ﻿using BarberShop.Application.Services;
-using BarberShop.Application.Services.Interfaces;
-using BarberShop.Core.Base;
-using BarberShop.Core.Base.Interfaces;
-using BarberShop.Core.Base.Notifications;
-using BarberShop.Core.Extensions.Security;
-using BarberShop.Data.Context;
-using BarberShop.Data.Repositories;
-using BarberShop.Data.Repositories.Interfaces;
+using BarberShop.Data;
 
 namespace BarberShop.Api.ApiConfig
 {
@@ -18,16 +11,19 @@ namespace BarberShop.Api.ApiConfig
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<INotifier, Notifier>();
             services.AddScoped<IUser, AspNetUser>();
-
-
-
+            services.AddScoped<IHaircutService, HaircutService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IScheduleService, ScheduleService>();
+            services.AddScoped<IJwtService, JwtService>();
+            services.AddScoped<ISubscriptionService, SubscriptionService>();
             #endregion
 
             #region repositories
             services.AddScoped<BarberShopContext>();
-            services.AddScoped(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IScheduleRepository, ScheduleRepository>();
+            services.AddScoped<IHaircutRepository, HaircutRepository>();
+            services.AddScoped<ISubscriptionRepository, SubscriptionRepository>();
 
             #endregion
         }

@@ -7,12 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Entities\enums\" />
-    <Folder Include="Entities\ValidationsService\" />
+    <Compile Remove="Entities\ValidationsService\**" />
+    <EmbeddedResource Remove="Entities\ValidationsService\**" />
+    <None Remove="Entities\ValidationsService\**" />
   </ItemGroup>
 
   <ItemGroup>
-	  <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.0" />
+    <PackageReference Include="FluentValidation" Version="11.11.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.0" />
   </ItemGroup>
 
   <ItemGroup>

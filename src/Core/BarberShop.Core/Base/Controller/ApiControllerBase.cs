@@ -1,17 +1,13 @@
-﻿using BarberShop.Core.Base.Interfaces;
-using BarberShop.Core.Base.Notifications;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
-namespace BarberShop.Core.Base
+namespace BarberShop.Core
 {
     [ApiController]
     public class ApiControllerBase : ControllerBase
     {
         private readonly INotifier _notifier;
-
         public readonly IUser _appUser;
-        //public readonly ITenantSetter _setter;
         protected long ContaId { get; set; }
         protected string UserId { get; set; }
         protected bool AuthenticatedUser { get; set; }
@@ -24,9 +20,8 @@ namespace BarberShop.Core.Base
             if (appUser.IsAuthenticated())
             {
                 UserId = appUser.GetUserId();
-                ContaId = appUser.GetAccountId();
+                //ContaId = appUser.GetAccountId();
                 AuthenticatedUser = true;
-                //_setter.SetTenant(appUser.GetAccountId());
             }
             //_auditoria = auditoria;
         }

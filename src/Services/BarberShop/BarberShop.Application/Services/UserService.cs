@@ -1,14 +1,7 @@
-﻿using BarberShop.Application.Dtos;
-using BarberShop.Application.MappingsConfig;
-using BarberShop.Application.Services.Interfaces;
-using BarberShop.Application.Services.OtherServices;
-using BarberShop.Core.Entities;
-using BarberShop.Data.Repositories.Interfaces;
-using BarberShop.Domain.Entities;
-using BarberShop.Domain.Entities.Validations.Services;
-using Microsoft.EntityFrameworkCore;
+﻿using BarberShop.Data;
+using BarberShop.Domain;
 
-namespace BarberShop.Application.Services
+namespace BarberShop.Application
 {
     public class UserService : IUserService
     {
@@ -19,14 +12,26 @@ namespace BarberShop.Application.Services
             _userRepository = repository;
         }
 
-        public Task<Response<string>> Authenticate(string email, string password)
-        {
-            throw new NotImplementedException();
-        }
 
-        public Task<bool> CreateUser(UserDto users)
+        public async Task<User> GetFindByEmailAsync(string email)
         {
-            throw new NotImplementedException();
+            return await _userRepository.GetFindByEmailAsync(email);
+        }
+        public async Task<UserDTO> GetUserById(string id)
+        {
+            var user = await _userRepository.GetUserFromId(id);
+
+            return user.Map();
+        }
+        public async Task<bool> Update(UserDTQ userDTQ)
+        {
+            var user = await _userRepository.GetUserFromId(userDTQ.Id);
+            if (user == null) return false;
+
+            user.Name = userDTQ.Name;
+            user.Address = userDTQ.Address;
+
+            return await _userRepository.Update(user);
         }
     }
 }

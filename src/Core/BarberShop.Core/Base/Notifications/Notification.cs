@@ -1,4 +1,4 @@
-﻿namespace BarberShop.Core.Base.Notifications
+﻿namespace BarberShop.Core
 {
     public class Notification
     {
