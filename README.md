@@ -30,10 +30,10 @@ Sistema back-end para gerenciamento de barbearias, desenvolvido em C# com ASP.NE
 ### Passos
 
 1. Clone o repositório:
-   ```bash
+```bash
    git clone https://github.com/PRbrate/BarberShop.git
    cd BarberShop
-
+```
 2. Configure a string de conexão com o banco de dados PostgreSQL no arquivo appsettings.json:
 ```bash
    "ConnectionStrings": {
