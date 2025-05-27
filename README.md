@@ -35,15 +35,17 @@ Sistema back-end para gerenciamento de barbearias, desenvolvido em C# com ASP.NE
    cd BarberShop
 
 2. Configure a string de conexão com o banco de dados PostgreSQL no arquivo appsettings.json:
+```bash
    "ConnectionStrings": {
       "DefaultConnection": "Host=localhost;Port=5432;Database=BarberShopDb;Username=seu_usuario;Password=sua_senha"
      }
+```
    
 3.Execute as migrações do banco de dados:
 ```bash
-  dotnet ef database update
+   dotnet ef database update
 ```
 4. Inicie o projeto:
-   ```bash
-    dotnet run
-   ```
+```bash
+   dotnet run
+```
