@@ -16,18 +16,11 @@ namespace BarberShop.Data
         {
             var totalcount = _context.Haircut.Count();
 
-            var items = await _context.Haircut.Where(c=> c.UserId == userId && status).OrderBy(p => p.Price).ToListAsync();
+            var items = await _context.Haircut.Where(c=> c.UserId == userId && c.Status == status).OrderBy(p => p.Price).ToListAsync();
 
             return items;
         }
-        public async Task<bool> UpdateStatus(Haircut haircut)
-        {
-            _context.Haircut.Attach(haircut);
 
-            _context.Entry(haircut).Property(h => h.Status).IsModified = true;
-            _context.Entry(haircut).Property(h => h.UpdatedAt).IsModified = true;
-            return await SaveChanges() > 0;
-        }
 
         public int GetCount(string userId)
         {
