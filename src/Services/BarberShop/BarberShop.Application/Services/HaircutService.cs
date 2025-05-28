@@ -77,27 +77,25 @@ namespace BarberShop.Application.Services
 
         public async Task<bool> UpdateHaircut(HaircutDTQ haircutDtq)
         {
-            var haircut = _haircutRepository.Search(h => h.Id == haircutDtq.Id).Result.FirstOrDefault();
+            var haircut = await _haircutRepository.GetById(haircutDtq.Id);
 
             if (haircut == null) return false;
 
             if (!string.IsNullOrEmpty(haircutDtq.Name)) haircut.Name = haircutDtq.Name;
             if (haircutDtq.Price != 0) haircut.Price = haircutDtq.Price;
-            haircut.UpdatedAt = DateTime.UtcNow;
 
             return await _haircutRepository.Update(haircut);
         }
 
         public async Task<bool> DesactiveHaircut(Guid id)
         {
-            var haircut = _haircutRepository.Search(h => h.Id == id).Result.FirstOrDefault();
+            var haircut = await _haircutRepository.GetById(id);
 
             if (haircut == null) return false;
 
-            haircut.Status = !haircut.Status;
-            haircut.UpdatedAt = DateTime.UtcNow;
+            haircut.UpdateStatus();
 
-            return await _haircutRepository.UpdateStatus(haircut);
+            return await _haircutRepository.Update(haircut);
         }
     }
 }

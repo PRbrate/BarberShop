@@ -106,5 +106,30 @@ namespace BarberShop.Data
 
         }
 
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
+        {
+            const string updatedAt = "UpdatedAt";
+
+            foreach (var entry in ChangeTracker.Entries())
+            {
+                // Verifica se a entidade tem a propriedade 'UpdatedAt'
+                if (entry.Entity.GetType().GetProperty(updatedAt) != null)
+                {
+                    if (entry.State == EntityState.Added)
+                    {
+                        // Define o valor atual para 'UpdatedAt' com a hora do fuso horário
+                        entry.Property(updatedAt).CurrentValue = DateTime.UtcNow;
+                    }
+                    else if (entry.State == EntityState.Modified)
+                    {
+                        // Impede a modificação de 'UpdatedAt' durante o update
+                        entry.Property(updatedAt).IsModified = false;
+                    }
+                }
+            }
+
+            return base.SaveChangesAsync(cancellationToken);
+        }
+
     }
 }

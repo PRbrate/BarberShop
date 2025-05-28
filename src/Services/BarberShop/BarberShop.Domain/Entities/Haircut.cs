@@ -14,5 +14,10 @@ namespace BarberShop.Domain
         public string UserId { get; set; }
         public User User { get; set; }
         public ICollection<Service> Services { get; set; }
+
+        public void UpdateStatus()
+        {
+            Status = !Status;
+        }
     }
 }
