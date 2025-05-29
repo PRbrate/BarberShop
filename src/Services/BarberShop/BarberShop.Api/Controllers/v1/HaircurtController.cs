@@ -21,7 +21,6 @@
 
             var sucess = await _haircutService.CreateHaircut(haircutDtq);
 
-
             return CustomResponse(haircutDtq);
 
         }
@@ -48,7 +47,7 @@
         [HttpGet("count")]
         public IActionResult GetCount()
         {
-            var count =  _haircutService.GetCount(UserId);
+            var count = _haircutService.GetCount(UserId);
 
             return CustomResponse(count);
 
@@ -66,7 +65,7 @@
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateHaircut(Guid id,HaircutDTQ haircutDtq)
+        public async Task<IActionResult> UpdateHaircut(Guid id, HaircutDTQ haircutDtq)
         {
 
             haircutDtq.Id = id;

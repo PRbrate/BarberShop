@@ -64,12 +64,6 @@ namespace BarberShop.Data
             modelBuilder.Entity<Service>()
                 .HasQueryFilter(s => !s.IsFinish);
 
-            //modelBuilder.Entity<Subscription>()
-            //    .HasOne(u => u.User)
-            //    .WithMany(s => s.Subscriptions)
-            //    .HasForeignKey(s => s.UserId)
-            //    .OnDelete(DeleteBehavior.Restrict);
-
             modelBuilder.Entity<Service>()
                 .Property(p => p.CreatedAt)
                 .HasDefaultValueSql("CURRENT_TIMESTAMP")
@@ -106,30 +100,31 @@ namespace BarberShop.Data
 
         }
 
-        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
-            const string updatedAt = "UpdatedAt";
-
             foreach (var entry in ChangeTracker.Entries())
             {
-                // Verifica se a entidade tem a propriedade 'UpdatedAt'
-                if (entry.Entity.GetType().GetProperty(updatedAt) != null)
+                if (entry.State != EntityState.Modified)
+                    continue;
+
+                if (entry.Properties.Any(p => p.Metadata.Name == "UpdatedAt"))
                 {
-                    if (entry.State == EntityState.Added)
-                    {
-                        // Define o valor atual para 'UpdatedAt' com a hora do fuso horário
-                        entry.Property(updatedAt).CurrentValue = DateTime.UtcNow;
-                    }
-                    else if (entry.State == EntityState.Modified)
-                    {
-                        // Impede a modificação de 'UpdatedAt' durante o update
-                        entry.Property(updatedAt).IsModified = false;
-                    }
+                    entry.Property("UpdatedAt").CurrentValue = DateTime.UtcNow;
+                }
+
+                if (entry.Properties.Any(p => p.Metadata.Name == "CreatedAt"))
+                {
+                    entry.Property("CreatedAt").IsModified = false;
+                }
+                if (entry.Properties.Any(p => p.Metadata.Name == "UserId"))
+                {
+                    entry.Property("UserId").IsModified = false;
                 }
             }
 
             return base.SaveChangesAsync(cancellationToken);
         }
+
 
     }
 }

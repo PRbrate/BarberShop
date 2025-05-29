@@ -33,7 +33,7 @@ namespace BarberShop.Application.Services
 
             if (!ExecuteVatidation(new HaircutValidation(), haircut)) return false;
 
-            if (_haircutRepository.Search(p => p.Name == haircut.Name).Result.Any())
+            if (_haircutRepository.Search(p => p.UserId == haircutDto.UserId && p.Name == haircut.Name).Result.Any())
             {
                 Notifier(BarberShopErrorMessage.ERROR_HAIRCUT_EXISTS);
                 return false;
@@ -61,7 +61,7 @@ namespace BarberShop.Application.Services
         {
             var list = await _haircutRepository.GetListHaicurt(userId, status);
 
-            return list.Map(); ;
+            return list.Map();
 
         }
 
@@ -77,12 +77,17 @@ namespace BarberShop.Application.Services
 
         public async Task<bool> UpdateHaircut(HaircutDTQ haircutDtq)
         {
-            var haircut = await _haircutRepository.GetById(haircutDtq.Id);
+            var haircut = haircutDtq.Map();
 
             if (haircut == null) return false;
 
-            if (!string.IsNullOrEmpty(haircutDtq.Name)) haircut.Name = haircutDtq.Name;
-            if (haircutDtq.Price != 0) haircut.Price = haircutDtq.Price;
+            if (!ExecuteVatidation(new HaircutValidation(), haircut)) return false;
+
+            if (!_haircutRepository.Search(p => p.Id == haircutDtq.Id).Result.Any())
+            {
+                Notifier(BarberShopErrorMessage.ERROR_HAIRCUT_NOT_FOUND);
+                return false;
+            }
 
             return await _haircutRepository.Update(haircut);
         }

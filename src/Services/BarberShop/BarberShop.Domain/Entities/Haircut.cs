@@ -7,6 +7,7 @@ namespace BarberShop.Domain
         public Haircut()
         {
             Services = [];
+            Status = true;
         }
         public string Name { get; set; }
         public double Price { get; set; }

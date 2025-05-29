@@ -4,22 +4,12 @@ namespace BarberShop.Application.MappingsConfig
 {
     public static class AutoMapperHaircut
     {
-        public static Haircut Map(this HaircutDTO haircutDto) => new Haircut
-        {
-            Id = haircutDto.Id,
-            Name = haircutDto.Name,
-            Price = haircutDto.Price,
-            UserId = haircutDto.UserId,
-            Status = haircutDto.Status
-        };
-
-        public static Haircut Map(this HaircutDTQ haircutDto) => new Haircut
-        {
-            Id = new Guid(),
-            Name = haircutDto.Name,
-            Price = haircutDto.Price,
-            UserId = haircutDto.UserId,
-            Status = true
+        public static Haircut Map(this HaircutDTQ haircutDtq) => new() { 
+            Id = haircutDtq.Id,
+            Name = haircutDtq.Name,
+            Price = haircutDtq.Price,
+            UserId = haircutDtq.UserId,
+            Status = haircutDtq.Status.HasValue ? haircutDtq.Status.Value : true
         };
 
         public static HaircutDTO Map(this Haircut haircut) => new
